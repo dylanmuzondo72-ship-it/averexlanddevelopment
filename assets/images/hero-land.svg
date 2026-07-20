@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 820" role="img" aria-label="Aerial land planning illustration">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f7f7f8"/><stop offset="1" stop-color="#e9ecef"/></linearGradient><linearGradient id="green" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#8aa08a"/><stop offset="1" stop-color="#526c57"/></linearGradient><filter id="shadow"><feDropShadow dx="0" dy="18" stdDeviation="24" flood-opacity=".18"/></filter></defs>
+<rect width="1200" height="820" rx="44" fill="url(#bg)"/>
+<g filter="url(#shadow)"><path d="M70 130h1060v560H70z" rx="28" fill="#c9b99a"/></g>
+<path d="M70 400h1060v95H70z" fill="#34373c"/><path d="M585 130h92v560h-92z" fill="#34373c"/>
+<path d="M70 438h1060" stroke="#f8f8f8" stroke-width="6" stroke-dasharray="36 26"/><path d="M631 130v560" stroke="#f8f8f8" stroke-width="6" stroke-dasharray="36 26"/>
+<g stroke="#fff" stroke-width="6" fill="url(#green)"><path d="M100 160h210v210H100z"/><path d="M335 160h220v210H335z"/><path d="M705 160h190v210H705z"/><path d="M920 160h180v210H920z"/><path d="M100 525h280v135H100z"/><path d="M405 525h150v135H405z"/><path d="M705 525h250v135H705z"/><path d="M980 525h120v135H980z"/></g>
+<g fill="#d71920"><circle cx="790" cy="265" r="36"/><path d="M790 300l-28 55h56z"/></g><circle cx="790" cy="265" r="13" fill="#fff"/>
+<g fill="#fff" stroke="#d71920" stroke-width="5"><rect x="145" y="208" width="116" height="82" rx="10"/><path d="M135 210l68-54 69 54"/><rect x="172" y="245" width="28" height="45" fill="#d71920"/></g>
+<g transform="translate(930 215)"><rect width="110" height="130" rx="16" fill="#fff"/><path d="M24 33h62M24 58h62M24 83h42" stroke="#4a4d52" stroke-width="9" stroke-linecap="round"/><circle cx="82" cy="96" r="25" fill="#d71920"/><path d="M70 96l8 8 16-19" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g transform="translate(250 545)" stroke="#d71920" stroke-width="7" fill="none"><path d="M0 70h220M40 70l45-50 50 50 44-35 41 35"/><circle cx="40" cy="70" r="8" fill="#d71920"/><circle cx="85" cy="20" r="8" fill="#d71920"/><circle cx="135" cy="70" r="8" fill="#d71920"/><circle cx="179" cy="35" r="8" fill="#d71920"/></g>
+<rect x="70" y="92" width="400" height="76" rx="20" fill="#fff" filter="url(#shadow)"/><text x="105" y="141" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#191b1f">LAND • PLANNING • VALUE</text>
+</svg>
