@@ -20,3 +20,6 @@ Before final publication
 - Confirm whether +263 774 041 144 is the preferred WhatsApp number.
 
 The website deliberately avoids claiming completed projects, licences, registrations or guaranteed title verification without evidence.
+
+
+Update: SVG illustration placeholders were replaced with realistic generated website images for the hero, advisory, due diligence, verification, surveying, project management, development coordination and mapping visuals.
