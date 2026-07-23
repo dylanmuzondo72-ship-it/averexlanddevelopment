@@ -1,0 +1,126 @@
+{
+  "capturedAt": "2026-07-23T20:01:25.626Z",
+  "localUrl": "http://127.0.0.1:4173",
+  "routeChecks": [
+    {
+      "route": "/",
+      "status": 200,
+      "title": "Averex Land Solutions | Land & Property Advisory",
+      "bytes": 50444,
+      "hasNoIndex": false
+    },
+    {
+      "route": "/about",
+      "status": 200,
+      "title": "About | Averex Land Solutions",
+      "bytes": 18488,
+      "hasNoIndex": false
+    },
+    {
+      "route": "/services",
+      "status": 200,
+      "title": "Services | Averex Land Solutions",
+      "bytes": 68910,
+      "hasNoIndex": false
+    },
+    {
+      "route": "/available-land",
+      "status": 200,
+      "title": "Available Land | Averex Land Solutions",
+      "bytes": 18616,
+      "hasNoIndex": false
+    },
+    {
+      "route": "/projects",
+      "status": 200,
+      "title": "Projects | Averex Land Solutions",
+      "bytes": 19098,
+      "hasNoIndex": false
+    },
+    {
+      "route": "/contact",
+      "status": 200,
+      "title": "Contact | Averex Land Solutions",
+      "bytes": 20215,
+      "hasNoIndex": false
+    },
+    {
+      "route": "/login",
+      "status": 200,
+      "title": "Staff Login | Averex Land Solutions",
+      "bytes": 15711,
+      "hasNoIndex": true
+    }
+  ],
+  "assetChecks": [
+    {
+      "path": "/assets/images/advisory.png",
+      "status": 200,
+      "contentType": "image/png"
+    },
+    {
+      "path": "/assets/images/averex-logo.png",
+      "status": 200,
+      "contentType": "image/png"
+    },
+    {
+      "path": "/assets/images/due-diligence.png",
+      "status": 200,
+      "contentType": "image/png"
+    },
+    {
+      "path": "/assets/images/favicon.png",
+      "status": 200,
+      "contentType": "image/png"
+    },
+    {
+      "path": "/assets/images/hero-land.png",
+      "status": 200,
+      "contentType": "image/png"
+    },
+    {
+      "path": "/assets/images/infrastructure.png",
+      "status": 200,
+      "contentType": "image/png"
+    },
+    {
+      "path": "/assets/images/map-location.png",
+      "status": 200,
+      "contentType": "image/png"
+    },
+    {
+      "path": "/assets/images/project-management.png",
+      "status": 200,
+      "contentType": "image/png"
+    },
+    {
+      "path": "/assets/images/surveying.png",
+      "status": 200,
+      "contentType": "image/png"
+    },
+    {
+      "path": "/assets/images/verification.png",
+      "status": 200,
+      "contentType": "image/png"
+    }
+  ],
+  "whatsappLinks": [
+    "https://wa.me/263774041144?text=Hello%20Averex%20Land%20Solutions",
+    "https://wa.me/263774041144?text=Hello%20Averex%20Land%20Solutions%2C%20I%20would%20like%20to%20discuss%20a%20land%20or%20property%20matter.",
+    "https://wa.me/263774041144?text=Hello%20Averex%20Land%20Solutions%2C%20I%20would%20like%20to%20request%20a%20consultation."
+  ],
+  "emailLinks": [
+    "mailto:averexls@gmail.com",
+    "mailto:brynermungofa@gmail.com"
+  ],
+  "telephoneLinks": [
+    "tel:+263717515513",
+    "tel:+263774041144"
+  ],
+  "googleMapsUrls": [
+    "https://www.google.com/maps?q=Lot%2018%20Doornfontein%2024km%20peg%20Harare%20Bulawayo%20Road%20Harare",
+    "https://www.google.com/maps?q=Lot%2018%20Doornfontein%2024km%20peg%20Harare%20Bulawayo%20Road%20Harare&output=embed"
+  ],
+  "unknownListingStatus": 404,
+  "unknownListingNoindex": true
+}

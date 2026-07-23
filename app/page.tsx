@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ContactSection } from "@/components/ContactSection";
 import { AvailableLandExplorer } from "@/components/AvailableLandExplorer";
 import { companySettings } from "@/lib/company";
-import { getFeaturedListings, landListingDisclaimer } from "@/lib/land-listings";
+import { getFeaturedListings } from "@/lib/land-listings";
 import { getSiteUrl } from "@/lib/seo";
 import { serviceGroups } from "@/lib/services";
 import { publicWhatsAppLinks } from "@/lib/whatsapp";
@@ -195,7 +195,6 @@ export default function HomePage() {
             </p>
           </div>
           <AvailableLandExplorer listings={featuredListings} siteUrl={getSiteUrl()} />
-          <p className="service-note">{landListingDisclaimer}</p>
         </div>
       </section>
 
