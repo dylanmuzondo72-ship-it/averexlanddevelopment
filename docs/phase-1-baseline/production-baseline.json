@@ -1,0 +1,78 @@
+﻿{
+    "capturedAt":  "2026-07-23T18:37:15.6362131Z",
+    "productionUrl":  "https://averexlanddevelopment.vercel.app/",
+    "statusCode":  200,
+    "title":  "Averex Land Solutions | Land \u0026 Property Advisory",
+    "metaDescription":  "Averex Land Solutions provides land and property advisory, due diligence, ownership verification support and project management services in Zimbabwe.",
+    "vercelProject":  {
+                          "teamId":  "team_XwFWIOtwNsCcJzbDk2n8U28h",
+                          "projectId":  "prj_RiBDVhTsLdfebSnjBGS4egVsXobm",
+                          "projectName":  "averexlanddevelopment",
+                          "latestProductionDeploymentId":  "dpl_AZLyhmTsj4kegeiDjEYUHyad7t9q",
+                          "productionBranchEvidence":  "Vercel production deployments target GitHub ref main and expose branchAlias averexlanddevelopment-git-main-dylanmuzondo72-ship-its-projects.vercel.app.",
+                          "productionBranch":  "main",
+                          "latestProductionCommit":  "d21a51cc07a190ddfa11f92d186e27d01485cd36"
+                      },
+    "publicRoutes":  [
+                         "/"
+                     ],
+    "sectionAnchors":  [
+                           "#about",
+                           "#contact",
+                           "#insights",
+                           "#main",
+                           "#process",
+                           "#services",
+                           "#top"
+                       ],
+    "imageUrls":  [
+                      "assets/images/advisory.png",
+                      "assets/images/averex-logo.png",
+                      "assets/images/due-diligence.png",
+                      "assets/images/hero-land.png",
+                      "assets/images/infrastructure.png",
+                      "assets/images/map-location.png",
+                      "assets/images/project-management.png",
+                      "assets/images/surveying.png",
+                      "assets/images/verification.png"
+                  ],
+    "scriptUrls":  [
+                       "assets/js/script.js"
+                   ],
+    "stylesheetUrls":  [
+                           "assets/css/style.css",
+                           "assets/images/favicon.png"
+                       ],
+    "whatsappLinks":  [
+                          "https://wa.me/263774041144?text=Hello%20Averex%20Land%20Solutions",
+                          "https://wa.me/263774041144?text=Hello%20Averex%20Land%20Solutions%2C%20I%20would%20like%20to%20discuss%20a%20land%20or%20property%20matter.",
+                          "https://wa.me/263774041144?text=Hello%20Averex%20Land%20Solutions%2C%20I%20would%20like%20to%20request%20a%20consultation."
+                      ],
+    "emailLinks":  [
+                       "mailto:averexls@gmail.com",
+                       "mailto:brynermungofa@gmail.com"
+                   ],
+    "telephoneLinks":  [
+                           "tel:+263717515513",
+                           "tel:+263774041144"
+                       ],
+    "googleMapsUrls":  [
+                           "https://www.google.com/maps?q=Lot%2018%20Doornfontein%2024km%20peg%20Harare%20Bulawayo%20Road%20Harare\u0026output=embed"
+                       ],
+    "allHrefs":  [
+                     "#about",
+                     "#contact",
+                     "#insights",
+                     "#main",
+                     "#process",
+                     "#services",
+                     "#top",
+                     "https://wa.me/263774041144?text=Hello%20Averex%20Land%20Solutions",
+                     "https://wa.me/263774041144?text=Hello%20Averex%20Land%20Solutions%2C%20I%20would%20like%20to%20discuss%20a%20land%20or%20property%20matter.",
+                     "https://wa.me/263774041144?text=Hello%20Averex%20Land%20Solutions%2C%20I%20would%20like%20to%20request%20a%20consultation.",
+                     "mailto:averexls@gmail.com",
+                     "mailto:brynermungofa@gmail.com",
+                     "tel:+263717515513",
+                     "tel:+263774041144"
+                 ]
+}

@@ -1,0 +1,27 @@
+{
+  "capturedAt": "2026-07-23T18:54:05.598Z",
+  "url": "https://averexlanddevelopment.vercel.app/",
+  "captures": [
+    {
+      "name": "desktop",
+      "width": 1440,
+      "height": 1200,
+      "fullPageWidth": 1425,
+      "fullPageHeight": 7595
+    },
+    {
+      "name": "tablet",
+      "width": 820,
+      "height": 1180,
+      "fullPageWidth": 820,
+      "fullPageHeight": 10851
+    },
+    {
+      "name": "mobile",
+      "width": 390,
+      "height": 844,
+      "fullPageWidth": 390,
+      "fullPageHeight": 13858
+    }
+  ]
+}
