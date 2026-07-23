@@ -34,14 +34,16 @@ export function Footer() {
           <a href={companySettings.emails.alternative.href}>
             {companySettings.emails.alternative.display}
           </a>
-          <Link className="staff-login-link" href="/login">
-            Staff Login
-          </Link>
         </div>
       </div>
       <div className="container footer-bottom">
         <span>© {new Date().getFullYear()} Averex Land Solutions. All rights reserved.</span>
-        <span>{companySettings.slogan}</span>
+        <div className="footer-bottom-links">
+          <Link className="footer-staff-portal" href="/login">
+            Staff Portal
+          </Link>
+          <span>{companySettings.slogan}</span>
+        </div>
       </div>
     </footer>
   );

@@ -1,54 +1,54 @@
 {
-  "capturedAt": "2026-07-23T20:01:25.626Z",
+  "capturedAt": "2026-07-23T20:42:41.036Z",
   "localUrl": "http://127.0.0.1:4173",
   "routeChecks": [
     {
       "route": "/",
       "status": 200,
       "title": "Averex Land Solutions | Land & Property Advisory",
-      "bytes": 50444,
+      "bytes": 50944,
       "hasNoIndex": false
     },
     {
       "route": "/about",
       "status": 200,
       "title": "About | Averex Land Solutions",
-      "bytes": 18488,
+      "bytes": 19002,
       "hasNoIndex": false
     },
     {
       "route": "/services",
       "status": 200,
       "title": "Services | Averex Land Solutions",
-      "bytes": 68910,
+      "bytes": 69410,
       "hasNoIndex": false
     },
     {
       "route": "/available-land",
       "status": 200,
       "title": "Available Land | Averex Land Solutions",
-      "bytes": 18616,
+      "bytes": 19116,
       "hasNoIndex": false
     },
     {
       "route": "/projects",
       "status": 200,
       "title": "Projects | Averex Land Solutions",
-      "bytes": 19098,
+      "bytes": 19598,
       "hasNoIndex": false
     },
     {
       "route": "/contact",
       "status": 200,
       "title": "Contact | Averex Land Solutions",
-      "bytes": 20215,
+      "bytes": 20715,
       "hasNoIndex": false
     },
     {
       "route": "/login",
       "status": 200,
-      "title": "Staff Login | Averex Land Solutions",
-      "bytes": 15711,
+      "title": "Staff Portal | Averex Land Solutions",
+      "bytes": 16246,
       "hasNoIndex": true
     }
   ],

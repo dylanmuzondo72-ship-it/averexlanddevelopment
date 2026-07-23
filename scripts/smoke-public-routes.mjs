@@ -95,6 +95,12 @@ async function main() {
     if (!homeHtml.includes("https://wa.me/263774041144?text=Hello%20Averex%20Land%20Solutions")) {
       throw new Error("Homepage floating WhatsApp URL changed");
     }
+    if (!homeHtml.includes("Staff Portal") || !homeHtml.includes("href=\"/login\"")) {
+      throw new Error("Staff Portal navigation link is missing");
+    }
+    if (homeHtml.includes("Staff Login")) {
+      throw new Error("Staff Login label should be renamed to Staff Portal");
+    }
     if (!contactHtml.includes("id=\"whatsappForm\"")) {
       throw new Error("Contact form id changed");
     }

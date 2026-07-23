@@ -3,8 +3,8 @@ import Link from "next/link";
 import { companySettings } from "@/lib/company";
 
 export const metadata: Metadata = {
-  title: "Staff Login",
-  description: "Secure Averex staff access placeholder.",
+  title: "Staff Portal",
+  description: "Secure Averex staff portal placeholder.",
   robots: {
     index: false,
     follow: false,
