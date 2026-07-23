@@ -12,6 +12,7 @@ const previewHeaders =
 const nextConfig = {
   poweredByHeader: false,
   async headers() {
+    if (!previewHeaders.length) return [];
     return [
       {
         source: "/:path*",
