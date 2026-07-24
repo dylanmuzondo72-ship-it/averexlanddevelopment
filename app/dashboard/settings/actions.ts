@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import { requireRoles } from "@/lib/dashboard/access";
 import type { SettingsFormState } from "@/lib/dashboard/settings-validation";
 import { validateSettingsForm } from "@/lib/dashboard/settings-validation";
@@ -64,4 +65,47 @@ export async function updateCompanySettingsAction(
     fieldErrors: {},
     message: "Company settings were updated successfully.",
   };
+}
+
+export async function updateDocumentDefaultsAction(formData: FormData) {
+  const { supabase } = await requireRoles(["administrator"]);
+  const settingsId = String(formData.get("settingsId") || "");
+  const quoteValidityDays = Number(formData.get("quoteValidityDays"));
+  const invoiceDueDays = Number(formData.get("invoiceDueDays"));
+  const taxLabel = String(formData.get("taxLabel") || "").trim();
+  const taxMode = String(formData.get("taxMode") || "exclusive");
+
+  if (
+    !settingsId ||
+    !Number.isInteger(quoteValidityDays) ||
+    quoteValidityDays < 1 ||
+    quoteValidityDays > 3650 ||
+    !Number.isInteger(invoiceDueDays) ||
+    invoiceDueDays < 0 ||
+    invoiceDueDays > 3650 ||
+    !taxLabel ||
+    !["exclusive", "inclusive"].includes(taxMode)
+  ) {
+    redirect("/dashboard/settings?error=Enter valid document defaults.");
+  }
+
+  const { error } = await supabase.rpc("update_document_defaults", {
+    target_settings_id: settingsId,
+    new_quote_validity_days: quoteValidityDays,
+    new_invoice_due_days: invoiceDueDays,
+    new_tax_label: taxLabel,
+    new_tax_mode: taxMode as "exclusive" | "inclusive",
+  });
+
+  if (error) {
+    redirect(
+      "/dashboard/settings?error=" +
+        encodeURIComponent("Document defaults could not be saved."),
+    );
+  }
+
+  revalidatePath("/dashboard/settings");
+  revalidatePath("/dashboard/quotes/new");
+  revalidatePath("/dashboard/invoices/new");
+  redirect("/dashboard/settings?message=Document defaults were updated.");
 }

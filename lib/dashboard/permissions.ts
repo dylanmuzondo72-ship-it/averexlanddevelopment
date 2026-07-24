@@ -47,6 +47,22 @@ export function canViewActivity(role: AppRole) {
   return role === "administrator" || role === "accountant";
 }
 
+export function canCreateQuotations(role: AppRole) {
+  return role === "administrator" || role === "staff";
+}
+
+export function canManageQuotations(role: AppRole) {
+  return role === "administrator" || role === "staff";
+}
+
+export function canCreateInvoices(role: AppRole) {
+  return role === "administrator" || role === "accountant";
+}
+
+export function canManageInvoices(role: AppRole) {
+  return role === "administrator" || role === "accountant";
+}
+
 export function hasRole(role: AppRole, allowedRoles: readonly AppRole[]) {
   return allowedRoles.includes(role);
 }

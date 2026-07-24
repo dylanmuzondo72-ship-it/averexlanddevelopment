@@ -33,6 +33,18 @@ const navigationItems: NavigationItem[] = [
     visible: () => true,
   },
   {
+    href: "/dashboard/quotes",
+    label: "Quotations",
+    mark: "Q",
+    visible: () => true,
+  },
+  {
+    href: "/dashboard/invoices",
+    label: "Invoices",
+    mark: "I",
+    visible: () => true,
+  },
+  {
     href: "/dashboard/staff",
     label: "Staff",
     mark: "S",
@@ -60,7 +72,6 @@ const navigationItems: NavigationItem[] = [
 
 const laterModules = [
   "Land administration",
-  "Quotes and invoices",
   "Payments and receipts",
   "Projects and reports",
 ];

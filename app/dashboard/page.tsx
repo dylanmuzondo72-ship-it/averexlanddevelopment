@@ -88,7 +88,31 @@ export default async function DashboardPage({
 }) {
   const params = await searchParams;
   const { profile, supabase } = await requireDashboardUser();
-  const { data, error } = await supabase.rpc("dashboard_overview");
+  const [
+    { data, error },
+    { count: draftQuotationCount },
+    { count: sentQuotationCount },
+    { count: draftInvoiceCount },
+    { count: issuedInvoiceCount },
+  ] = await Promise.all([
+    supabase.rpc("dashboard_overview"),
+    supabase
+      .from("quotations")
+      .select("id", { count: "exact", head: true })
+      .eq("status", "draft"),
+    supabase
+      .from("quotations")
+      .select("id", { count: "exact", head: true })
+      .eq("status", "sent"),
+    supabase
+      .from("invoices")
+      .select("id", { count: "exact", head: true })
+      .eq("status", "draft"),
+    supabase
+      .from("invoices")
+      .select("id", { count: "exact", head: true })
+      .eq("status", "issued"),
+  ]);
   const overview = parseOverview(data);
   const cards = [
     { label: "Active clients", value: overview.activeClients },
@@ -132,6 +156,20 @@ export default async function DashboardPage({
           <article className="dashboard-summary-card" key={card.label}>
             <span>{card.label}</span>
             <strong>{card.value}</strong>
+          </article>
+        ))}
+      </section>
+
+      <section className="dashboard-summary-grid" aria-label="Document workflow totals">
+        {[
+          ["Draft quotations", draftQuotationCount || 0],
+          ["Sent quotations", sentQuotationCount || 0],
+          ["Draft invoices", draftInvoiceCount || 0],
+          ["Issued invoices", issuedInvoiceCount || 0],
+        ].map(([label, value]) => (
+          <article className="dashboard-summary-card dashboard-summary-card-document" key={String(label)}>
+            <span>{String(label)}</span>
+            <strong>{String(value)}</strong>
           </article>
         ))}
       </section>

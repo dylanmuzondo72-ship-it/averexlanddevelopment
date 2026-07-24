@@ -1,4 +1,4 @@
-export type Json =
+﻿export type Json =
   | string
   | number
   | boolean
@@ -163,8 +163,12 @@ export type Database = {
           company_name: string
           created_at: string
           default_currency: string
+          default_invoice_due_days: number
           default_invoice_terms: string
           default_quote_terms: string
+          default_quote_validity_days: number
+          default_tax_label: string
+          default_tax_mode: Database["public"]["Enums"]["document_tax_mode"]
           default_tax_rate: number
           ecocash_details: Json
           google_maps_embed_url: string | null
@@ -193,8 +197,12 @@ export type Database = {
           company_name: string
           created_at?: string
           default_currency?: string
+          default_invoice_due_days?: number
           default_invoice_terms?: string
           default_quote_terms?: string
+          default_quote_validity_days?: number
+          default_tax_label?: string
+          default_tax_mode?: Database["public"]["Enums"]["document_tax_mode"]
           default_tax_rate?: number
           ecocash_details?: Json
           google_maps_embed_url?: string | null
@@ -223,8 +231,12 @@ export type Database = {
           company_name?: string
           created_at?: string
           default_currency?: string
+          default_invoice_due_days?: number
           default_invoice_terms?: string
           default_quote_terms?: string
+          default_quote_validity_days?: number
+          default_tax_label?: string
+          default_tax_mode?: Database["public"]["Enums"]["document_tax_mode"]
           default_tax_rate?: number
           ecocash_details?: Json
           google_maps_embed_url?: string | null
@@ -246,6 +258,224 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "company_settings_updated_by_fkey"
+            columns: ["updated_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      invoice_items: {
+        Row: {
+          created_at: string
+          description: string
+          discount_total: number
+          discount_type: Database["public"]["Enums"]["discount_type"]
+          discount_value: number
+          id: string
+          invoice_id: string
+          item_type: Database["public"]["Enums"]["document_item_type"]
+          line_subtotal: number
+          line_total: number
+          position: number
+          quantity: number
+          tax_applicable: boolean
+          unit: string
+          unit_price: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          discount_total?: number
+          discount_type?: Database["public"]["Enums"]["discount_type"]
+          discount_value?: number
+          id?: string
+          invoice_id: string
+          item_type?: Database["public"]["Enums"]["document_item_type"]
+          line_subtotal: number
+          line_total: number
+          position: number
+          quantity: number
+          tax_applicable?: boolean
+          unit?: string
+          unit_price: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          discount_total?: number
+          discount_type?: Database["public"]["Enums"]["discount_type"]
+          discount_value?: number
+          id?: string
+          invoice_id?: string
+          item_type?: Database["public"]["Enums"]["document_item_type"]
+          line_subtotal?: number
+          line_total?: number
+          position?: number
+          quantity?: number
+          tax_applicable?: boolean
+          unit?: string
+          unit_price?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "invoice_items_invoice_id_fkey"
+            columns: ["invoice_id"]
+            isOneToOne: false
+            referencedRelation: "invoices"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      invoices: {
+        Row: {
+          amount_paid: number
+          balance_due: number
+          cancellation_reason: string | null
+          cancelled_at: string | null
+          client_id: string
+          client_snapshot: Json
+          company_snapshot: Json
+          created_at: string
+          created_by: string
+          currency: string
+          discount_total: number
+          discount_type: Database["public"]["Enums"]["discount_type"]
+          discount_value: number
+          due_date: string
+          grand_total: number
+          id: string
+          invoice_number: string | null
+          issue_date: string
+          issued_at: string | null
+          issued_by: string | null
+          lock_version: number
+          notes: string | null
+          snapshot_frozen_at: string | null
+          snapshot_version: number
+          source_quotation_id: string | null
+          status: Database["public"]["Enums"]["invoice_status"]
+          subject: string
+          subtotal: number
+          tax_label: string
+          tax_mode: Database["public"]["Enums"]["document_tax_mode"]
+          tax_rate: number
+          tax_total: number
+          taxable_subtotal: number
+          terms_conditions: string
+          updated_at: string
+          updated_by: string
+        }
+        Insert: {
+          amount_paid?: number
+          balance_due?: number
+          cancellation_reason?: string | null
+          cancelled_at?: string | null
+          client_id: string
+          client_snapshot: Json
+          company_snapshot: Json
+          created_at?: string
+          created_by: string
+          currency: string
+          discount_total?: number
+          discount_type?: Database["public"]["Enums"]["discount_type"]
+          discount_value?: number
+          due_date: string
+          grand_total?: number
+          id?: string
+          invoice_number?: string | null
+          issue_date: string
+          issued_at?: string | null
+          issued_by?: string | null
+          lock_version?: number
+          notes?: string | null
+          snapshot_frozen_at?: string | null
+          snapshot_version?: number
+          source_quotation_id?: string | null
+          status?: Database["public"]["Enums"]["invoice_status"]
+          subject: string
+          subtotal?: number
+          tax_label?: string
+          tax_mode?: Database["public"]["Enums"]["document_tax_mode"]
+          tax_rate?: number
+          tax_total?: number
+          taxable_subtotal?: number
+          terms_conditions?: string
+          updated_at?: string
+          updated_by: string
+        }
+        Update: {
+          amount_paid?: number
+          balance_due?: number
+          cancellation_reason?: string | null
+          cancelled_at?: string | null
+          client_id?: string
+          client_snapshot?: Json
+          company_snapshot?: Json
+          created_at?: string
+          created_by?: string
+          currency?: string
+          discount_total?: number
+          discount_type?: Database["public"]["Enums"]["discount_type"]
+          discount_value?: number
+          due_date?: string
+          grand_total?: number
+          id?: string
+          invoice_number?: string | null
+          issue_date?: string
+          issued_at?: string | null
+          issued_by?: string | null
+          lock_version?: number
+          notes?: string | null
+          snapshot_frozen_at?: string | null
+          snapshot_version?: number
+          source_quotation_id?: string | null
+          status?: Database["public"]["Enums"]["invoice_status"]
+          subject?: string
+          subtotal?: number
+          tax_label?: string
+          tax_mode?: Database["public"]["Enums"]["document_tax_mode"]
+          tax_rate?: number
+          tax_total?: number
+          taxable_subtotal?: number
+          terms_conditions?: string
+          updated_at?: string
+          updated_by?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "invoices_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "invoices_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "invoices_issued_by_fkey"
+            columns: ["issued_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "invoices_source_quotation_id_fkey"
+            columns: ["source_quotation_id"]
+            isOneToOne: false
+            referencedRelation: "quotations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "invoices_updated_by_fkey"
             columns: ["updated_by"]
             isOneToOne: false
             referencedRelation: "profiles"
@@ -289,6 +519,246 @@ export type Database = {
         }
         Relationships: []
       }
+      quotation_items: {
+        Row: {
+          created_at: string
+          description: string
+          discount_total: number
+          discount_type: Database["public"]["Enums"]["discount_type"]
+          discount_value: number
+          id: string
+          item_type: Database["public"]["Enums"]["document_item_type"]
+          line_subtotal: number
+          line_total: number
+          position: number
+          quantity: number
+          quotation_id: string
+          tax_applicable: boolean
+          unit: string
+          unit_price: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          discount_total?: number
+          discount_type?: Database["public"]["Enums"]["discount_type"]
+          discount_value?: number
+          id?: string
+          item_type?: Database["public"]["Enums"]["document_item_type"]
+          line_subtotal: number
+          line_total: number
+          position: number
+          quantity: number
+          quotation_id: string
+          tax_applicable?: boolean
+          unit?: string
+          unit_price: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          discount_total?: number
+          discount_type?: Database["public"]["Enums"]["discount_type"]
+          discount_value?: number
+          id?: string
+          item_type?: Database["public"]["Enums"]["document_item_type"]
+          line_subtotal?: number
+          line_total?: number
+          position?: number
+          quantity?: number
+          quotation_id?: string
+          tax_applicable?: boolean
+          unit?: string
+          unit_price?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "quotation_items_quotation_id_fkey"
+            columns: ["quotation_id"]
+            isOneToOne: false
+            referencedRelation: "quotations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      quotations: {
+        Row: {
+          accepted_at: string | null
+          assigned_to: string | null
+          cancellation_reason: string | null
+          cancelled_at: string | null
+          client_id: string
+          client_snapshot: Json
+          company_snapshot: Json
+          converted_at: string | null
+          created_at: string
+          created_by: string
+          currency: string
+          discount_total: number
+          discount_type: Database["public"]["Enums"]["discount_type"]
+          discount_value: number
+          expired_at: string | null
+          expiry_date: string
+          grand_total: number
+          id: string
+          introduction: string | null
+          issue_date: string
+          lock_version: number
+          notes: string | null
+          quote_number: string
+          rejected_at: string | null
+          revision_number: number
+          root_quotation_id: string | null
+          sent_at: string | null
+          snapshot_frozen_at: string | null
+          snapshot_version: number
+          status: Database["public"]["Enums"]["quotation_status"]
+          subject: string
+          subtotal: number
+          supersedes_quotation_id: string | null
+          tax_label: string
+          tax_mode: Database["public"]["Enums"]["document_tax_mode"]
+          tax_rate: number
+          tax_total: number
+          taxable_subtotal: number
+          terms_conditions: string
+          updated_at: string
+          updated_by: string
+        }
+        Insert: {
+          accepted_at?: string | null
+          assigned_to?: string | null
+          cancellation_reason?: string | null
+          cancelled_at?: string | null
+          client_id: string
+          client_snapshot: Json
+          company_snapshot: Json
+          converted_at?: string | null
+          created_at?: string
+          created_by: string
+          currency: string
+          discount_total?: number
+          discount_type?: Database["public"]["Enums"]["discount_type"]
+          discount_value?: number
+          expired_at?: string | null
+          expiry_date: string
+          grand_total?: number
+          id?: string
+          introduction?: string | null
+          issue_date: string
+          lock_version?: number
+          notes?: string | null
+          quote_number: string
+          rejected_at?: string | null
+          revision_number?: number
+          root_quotation_id?: string | null
+          sent_at?: string | null
+          snapshot_frozen_at?: string | null
+          snapshot_version?: number
+          status?: Database["public"]["Enums"]["quotation_status"]
+          subject: string
+          subtotal?: number
+          supersedes_quotation_id?: string | null
+          tax_label?: string
+          tax_mode?: Database["public"]["Enums"]["document_tax_mode"]
+          tax_rate?: number
+          tax_total?: number
+          taxable_subtotal?: number
+          terms_conditions?: string
+          updated_at?: string
+          updated_by: string
+        }
+        Update: {
+          accepted_at?: string | null
+          assigned_to?: string | null
+          cancellation_reason?: string | null
+          cancelled_at?: string | null
+          client_id?: string
+          client_snapshot?: Json
+          company_snapshot?: Json
+          converted_at?: string | null
+          created_at?: string
+          created_by?: string
+          currency?: string
+          discount_total?: number
+          discount_type?: Database["public"]["Enums"]["discount_type"]
+          discount_value?: number
+          expired_at?: string | null
+          expiry_date?: string
+          grand_total?: number
+          id?: string
+          introduction?: string | null
+          issue_date?: string
+          lock_version?: number
+          notes?: string | null
+          quote_number?: string
+          rejected_at?: string | null
+          revision_number?: number
+          root_quotation_id?: string | null
+          sent_at?: string | null
+          snapshot_frozen_at?: string | null
+          snapshot_version?: number
+          status?: Database["public"]["Enums"]["quotation_status"]
+          subject?: string
+          subtotal?: number
+          supersedes_quotation_id?: string | null
+          tax_label?: string
+          tax_mode?: Database["public"]["Enums"]["document_tax_mode"]
+          tax_rate?: number
+          tax_total?: number
+          taxable_subtotal?: number
+          terms_conditions?: string
+          updated_at?: string
+          updated_by?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "quotations_assigned_to_fkey"
+            columns: ["assigned_to"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "quotations_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "quotations_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "quotations_root_quotation_id_fkey"
+            columns: ["root_quotation_id"]
+            isOneToOne: false
+            referencedRelation: "quotations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "quotations_supersedes_quotation_id_fkey"
+            columns: ["supersedes_quotation_id"]
+            isOneToOne: false
+            referencedRelation: "quotations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "quotations_updated_by_fkey"
+            columns: ["updated_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
@@ -316,6 +786,104 @@ export type Database = {
         SetofOptions: {
           from: "*"
           to: "profiles"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      cancel_invoice: {
+        Args: {
+          expected_lock_version: number
+          requested_cancellation_reason: string
+          target_invoice_id: string
+        }
+        Returns: {
+          amount_paid: number
+          balance_due: number
+          cancellation_reason: string | null
+          cancelled_at: string | null
+          client_id: string
+          client_snapshot: Json
+          company_snapshot: Json
+          created_at: string
+          created_by: string
+          currency: string
+          discount_total: number
+          discount_type: Database["public"]["Enums"]["discount_type"]
+          discount_value: number
+          due_date: string
+          grand_total: number
+          id: string
+          invoice_number: string | null
+          issue_date: string
+          issued_at: string | null
+          issued_by: string | null
+          lock_version: number
+          notes: string | null
+          snapshot_frozen_at: string | null
+          snapshot_version: number
+          source_quotation_id: string | null
+          status: Database["public"]["Enums"]["invoice_status"]
+          subject: string
+          subtotal: number
+          tax_label: string
+          tax_mode: Database["public"]["Enums"]["document_tax_mode"]
+          tax_rate: number
+          tax_total: number
+          taxable_subtotal: number
+          terms_conditions: string
+          updated_at: string
+          updated_by: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "invoices"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      convert_quotation_to_invoice: {
+        Args: { expected_lock_version: number; target_quotation_id: string }
+        Returns: {
+          amount_paid: number
+          balance_due: number
+          cancellation_reason: string | null
+          cancelled_at: string | null
+          client_id: string
+          client_snapshot: Json
+          company_snapshot: Json
+          created_at: string
+          created_by: string
+          currency: string
+          discount_total: number
+          discount_type: Database["public"]["Enums"]["discount_type"]
+          discount_value: number
+          due_date: string
+          grand_total: number
+          id: string
+          invoice_number: string | null
+          issue_date: string
+          issued_at: string | null
+          issued_by: string | null
+          lock_version: number
+          notes: string | null
+          snapshot_frozen_at: string | null
+          snapshot_version: number
+          source_quotation_id: string | null
+          status: Database["public"]["Enums"]["invoice_status"]
+          subject: string
+          subtotal: number
+          tax_label: string
+          tax_mode: Database["public"]["Enums"]["document_tax_mode"]
+          tax_rate: number
+          tax_total: number
+          taxable_subtotal: number
+          terms_conditions: string
+          updated_at: string
+          updated_by: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "invoices"
           isOneToOne: true
           isSetofReturn: false
         }
@@ -360,6 +928,187 @@ export type Database = {
         SetofOptions: {
           from: "*"
           to: "clients"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      create_invoice: {
+        Args: {
+          new_client_id: string
+          new_currency: string
+          new_discount_type: Database["public"]["Enums"]["discount_type"]
+          new_discount_value: number
+          new_due_date: string
+          new_issue_date: string
+          new_items: Json
+          new_notes: string
+          new_subject: string
+          new_tax_label: string
+          new_tax_mode: Database["public"]["Enums"]["document_tax_mode"]
+          new_tax_rate: number
+          new_terms_conditions: string
+        }
+        Returns: {
+          amount_paid: number
+          balance_due: number
+          cancellation_reason: string | null
+          cancelled_at: string | null
+          client_id: string
+          client_snapshot: Json
+          company_snapshot: Json
+          created_at: string
+          created_by: string
+          currency: string
+          discount_total: number
+          discount_type: Database["public"]["Enums"]["discount_type"]
+          discount_value: number
+          due_date: string
+          grand_total: number
+          id: string
+          invoice_number: string | null
+          issue_date: string
+          issued_at: string | null
+          issued_by: string | null
+          lock_version: number
+          notes: string | null
+          snapshot_frozen_at: string | null
+          snapshot_version: number
+          source_quotation_id: string | null
+          status: Database["public"]["Enums"]["invoice_status"]
+          subject: string
+          subtotal: number
+          tax_label: string
+          tax_mode: Database["public"]["Enums"]["document_tax_mode"]
+          tax_rate: number
+          tax_total: number
+          taxable_subtotal: number
+          terms_conditions: string
+          updated_at: string
+          updated_by: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "invoices"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      create_quotation: {
+        Args: {
+          new_assigned_to: string
+          new_client_id: string
+          new_currency: string
+          new_discount_type: Database["public"]["Enums"]["discount_type"]
+          new_discount_value: number
+          new_expiry_date: string
+          new_introduction: string
+          new_issue_date: string
+          new_items: Json
+          new_notes: string
+          new_subject: string
+          new_tax_label: string
+          new_tax_mode: Database["public"]["Enums"]["document_tax_mode"]
+          new_tax_rate: number
+          new_terms_conditions: string
+        }
+        Returns: {
+          accepted_at: string | null
+          assigned_to: string | null
+          cancellation_reason: string | null
+          cancelled_at: string | null
+          client_id: string
+          client_snapshot: Json
+          company_snapshot: Json
+          converted_at: string | null
+          created_at: string
+          created_by: string
+          currency: string
+          discount_total: number
+          discount_type: Database["public"]["Enums"]["discount_type"]
+          discount_value: number
+          expired_at: string | null
+          expiry_date: string
+          grand_total: number
+          id: string
+          introduction: string | null
+          issue_date: string
+          lock_version: number
+          notes: string | null
+          quote_number: string
+          rejected_at: string | null
+          revision_number: number
+          root_quotation_id: string | null
+          sent_at: string | null
+          snapshot_frozen_at: string | null
+          snapshot_version: number
+          status: Database["public"]["Enums"]["quotation_status"]
+          subject: string
+          subtotal: number
+          supersedes_quotation_id: string | null
+          tax_label: string
+          tax_mode: Database["public"]["Enums"]["document_tax_mode"]
+          tax_rate: number
+          tax_total: number
+          taxable_subtotal: number
+          terms_conditions: string
+          updated_at: string
+          updated_by: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "quotations"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      create_quotation_revision: {
+        Args: { expected_lock_version: number; target_quotation_id: string }
+        Returns: {
+          accepted_at: string | null
+          assigned_to: string | null
+          cancellation_reason: string | null
+          cancelled_at: string | null
+          client_id: string
+          client_snapshot: Json
+          company_snapshot: Json
+          converted_at: string | null
+          created_at: string
+          created_by: string
+          currency: string
+          discount_total: number
+          discount_type: Database["public"]["Enums"]["discount_type"]
+          discount_value: number
+          expired_at: string | null
+          expiry_date: string
+          grand_total: number
+          id: string
+          introduction: string | null
+          issue_date: string
+          lock_version: number
+          notes: string | null
+          quote_number: string
+          rejected_at: string | null
+          revision_number: number
+          root_quotation_id: string | null
+          sent_at: string | null
+          snapshot_frozen_at: string | null
+          snapshot_version: number
+          status: Database["public"]["Enums"]["quotation_status"]
+          subject: string
+          subtotal: number
+          supersedes_quotation_id: string | null
+          tax_label: string
+          tax_mode: Database["public"]["Enums"]["document_tax_mode"]
+          tax_rate: number
+          tax_total: number
+          taxable_subtotal: number
+          terms_conditions: string
+          updated_at: string
+          updated_by: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "quotations"
           isOneToOne: true
           isSetofReturn: false
         }
@@ -417,6 +1166,193 @@ export type Database = {
           updated_by: string
           updated_by_name: string
         }[]
+      }
+      get_document_activity: {
+        Args: {
+          document_kind: string
+          result_limit?: number
+          target_document_id: string
+        }
+        Returns: {
+          action: string
+          actor_name: string
+          created_at: string
+          id: string
+          summary: string
+        }[]
+      }
+      issue_invoice: {
+        Args: { expected_lock_version: number; target_invoice_id: string }
+        Returns: {
+          amount_paid: number
+          balance_due: number
+          cancellation_reason: string | null
+          cancelled_at: string | null
+          client_id: string
+          client_snapshot: Json
+          company_snapshot: Json
+          created_at: string
+          created_by: string
+          currency: string
+          discount_total: number
+          discount_type: Database["public"]["Enums"]["discount_type"]
+          discount_value: number
+          due_date: string
+          grand_total: number
+          id: string
+          invoice_number: string | null
+          issue_date: string
+          issued_at: string | null
+          issued_by: string | null
+          lock_version: number
+          notes: string | null
+          snapshot_frozen_at: string | null
+          snapshot_version: number
+          source_quotation_id: string | null
+          status: Database["public"]["Enums"]["invoice_status"]
+          subject: string
+          subtotal: number
+          tax_label: string
+          tax_mode: Database["public"]["Enums"]["document_tax_mode"]
+          tax_rate: number
+          tax_total: number
+          taxable_subtotal: number
+          terms_conditions: string
+          updated_at: string
+          updated_by: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "invoices"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      list_document_assignees: {
+        Args: never
+        Returns: {
+          display_name: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+        }[]
+      }
+      list_document_clients: {
+        Args: {
+          document_kind: string
+          result_limit?: number
+          search_term?: string
+        }
+        Returns: {
+          client_reference: string
+          company_name: string
+          display_name: string
+          email: string
+          id: string
+          phone: string
+        }[]
+      }
+      record_document_print: {
+        Args: { document_kind: string; target_document_id: string }
+        Returns: undefined
+      }
+      refresh_invoice_snapshots: {
+        Args: { expected_lock_version: number; target_invoice_id: string }
+        Returns: {
+          amount_paid: number
+          balance_due: number
+          cancellation_reason: string | null
+          cancelled_at: string | null
+          client_id: string
+          client_snapshot: Json
+          company_snapshot: Json
+          created_at: string
+          created_by: string
+          currency: string
+          discount_total: number
+          discount_type: Database["public"]["Enums"]["discount_type"]
+          discount_value: number
+          due_date: string
+          grand_total: number
+          id: string
+          invoice_number: string | null
+          issue_date: string
+          issued_at: string | null
+          issued_by: string | null
+          lock_version: number
+          notes: string | null
+          snapshot_frozen_at: string | null
+          snapshot_version: number
+          source_quotation_id: string | null
+          status: Database["public"]["Enums"]["invoice_status"]
+          subject: string
+          subtotal: number
+          tax_label: string
+          tax_mode: Database["public"]["Enums"]["document_tax_mode"]
+          tax_rate: number
+          tax_total: number
+          taxable_subtotal: number
+          terms_conditions: string
+          updated_at: string
+          updated_by: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "invoices"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      refresh_quotation_snapshots: {
+        Args: { expected_lock_version: number; target_quotation_id: string }
+        Returns: {
+          accepted_at: string | null
+          assigned_to: string | null
+          cancellation_reason: string | null
+          cancelled_at: string | null
+          client_id: string
+          client_snapshot: Json
+          company_snapshot: Json
+          converted_at: string | null
+          created_at: string
+          created_by: string
+          currency: string
+          discount_total: number
+          discount_type: Database["public"]["Enums"]["discount_type"]
+          discount_value: number
+          expired_at: string | null
+          expiry_date: string
+          grand_total: number
+          id: string
+          introduction: string | null
+          issue_date: string
+          lock_version: number
+          notes: string | null
+          quote_number: string
+          rejected_at: string | null
+          revision_number: number
+          root_quotation_id: string | null
+          sent_at: string | null
+          snapshot_frozen_at: string | null
+          snapshot_version: number
+          status: Database["public"]["Enums"]["quotation_status"]
+          subject: string
+          subtotal: number
+          supersedes_quotation_id: string | null
+          tax_label: string
+          tax_mode: Database["public"]["Enums"]["document_tax_mode"]
+          tax_rate: number
+          tax_total: number
+          taxable_subtotal: number
+          terms_conditions: string
+          updated_at: string
+          updated_by: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "quotations"
+          isOneToOne: true
+          isSetofReturn: false
+        }
       }
       search_activity_logs: {
         Args: {
@@ -476,6 +1412,72 @@ export type Database = {
           updated_by: string
         }[]
       }
+      search_invoices: {
+        Args: {
+          date_from?: string
+          date_to?: string
+          page_offset?: number
+          page_size?: number
+          search_term?: string
+          sort_order?: string
+          status_filter?: string
+        }
+        Returns: {
+          amount_paid: number
+          balance_due: number
+          client_id: string
+          client_name: string
+          created_at: string
+          created_by: string
+          currency: string
+          due_date: string
+          effective_status: string
+          grand_total: number
+          id: string
+          invoice_number: string
+          issue_date: string
+          lock_version: number
+          source_quotation_id: string
+          source_quote_number: string
+          stored_status: Database["public"]["Enums"]["invoice_status"]
+          subject: string
+          total_count: number
+          updated_at: string
+        }[]
+      }
+      search_quotations: {
+        Args: {
+          assigned_filter?: string
+          date_from?: string
+          date_to?: string
+          page_offset?: number
+          page_size?: number
+          search_term?: string
+          sort_order?: string
+          status_filter?: string
+        }
+        Returns: {
+          assigned_name: string
+          assigned_to: string
+          client_id: string
+          client_name: string
+          created_at: string
+          created_by: string
+          currency: string
+          effective_status: string
+          expiry_date: string
+          grand_total: number
+          id: string
+          issue_date: string
+          lock_version: number
+          quote_number: string
+          revision_number: number
+          stored_status: Database["public"]["Enums"]["quotation_status"]
+          subject: string
+          total_count: number
+          updated_at: string
+        }[]
+      }
       search_staff_profiles: {
         Args: {
           page_offset?: number
@@ -529,6 +1531,63 @@ export type Database = {
         }
       }
       touch_profile_last_seen: { Args: never; Returns: string }
+      transition_quotation: {
+        Args: {
+          expected_lock_version: number
+          requested_cancellation_reason?: string
+          requested_status: Database["public"]["Enums"]["quotation_status"]
+          target_quotation_id: string
+        }
+        Returns: {
+          accepted_at: string | null
+          assigned_to: string | null
+          cancellation_reason: string | null
+          cancelled_at: string | null
+          client_id: string
+          client_snapshot: Json
+          company_snapshot: Json
+          converted_at: string | null
+          created_at: string
+          created_by: string
+          currency: string
+          discount_total: number
+          discount_type: Database["public"]["Enums"]["discount_type"]
+          discount_value: number
+          expired_at: string | null
+          expiry_date: string
+          grand_total: number
+          id: string
+          introduction: string | null
+          issue_date: string
+          lock_version: number
+          notes: string | null
+          quote_number: string
+          rejected_at: string | null
+          revision_number: number
+          root_quotation_id: string | null
+          sent_at: string | null
+          snapshot_frozen_at: string | null
+          snapshot_version: number
+          status: Database["public"]["Enums"]["quotation_status"]
+          subject: string
+          subtotal: number
+          supersedes_quotation_id: string | null
+          tax_label: string
+          tax_mode: Database["public"]["Enums"]["document_tax_mode"]
+          tax_rate: number
+          tax_total: number
+          taxable_subtotal: number
+          terms_conditions: string
+          updated_at: string
+          updated_by: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "quotations"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
       update_client: {
         Args: {
           new_alternative_phone?: string
@@ -612,8 +1671,12 @@ export type Database = {
           company_name: string
           created_at: string
           default_currency: string
+          default_invoice_due_days: number
           default_invoice_terms: string
           default_quote_terms: string
+          default_quote_validity_days: number
+          default_tax_label: string
+          default_tax_mode: Database["public"]["Enums"]["document_tax_mode"]
           default_tax_rate: number
           ecocash_details: Json
           google_maps_embed_url: string | null
@@ -639,12 +1702,207 @@ export type Database = {
           isSetofReturn: false
         }
       }
+      update_document_defaults: {
+        Args: {
+          new_invoice_due_days: number
+          new_quote_validity_days: number
+          new_tax_label: string
+          new_tax_mode: Database["public"]["Enums"]["document_tax_mode"]
+          target_settings_id: string
+        }
+        Returns: {
+          address: string
+          alternative_email: string | null
+          alternative_phone: string | null
+          banking_details: Json
+          ceo_name: string
+          client_prefix: string
+          company_name: string
+          created_at: string
+          default_currency: string
+          default_invoice_due_days: number
+          default_invoice_terms: string
+          default_quote_terms: string
+          default_quote_validity_days: number
+          default_tax_label: string
+          default_tax_mode: Database["public"]["Enums"]["document_tax_mode"]
+          default_tax_rate: number
+          ecocash_details: Json
+          google_maps_embed_url: string | null
+          google_maps_query: string | null
+          id: string
+          invoice_prefix: string
+          land_listing_prefix: string
+          logo_path: string | null
+          primary_email: string
+          primary_phone: string
+          quote_prefix: string
+          receipt_prefix: string
+          slogan: string
+          social_links: Json
+          tax_details: Json
+          updated_at: string
+          updated_by: string | null
+        }
+        SetofOptions: {
+          from: "*"
+          to: "company_settings"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      update_invoice: {
+        Args: {
+          expected_lock_version: number
+          new_client_id: string
+          new_currency: string
+          new_discount_type: Database["public"]["Enums"]["discount_type"]
+          new_discount_value: number
+          new_due_date: string
+          new_issue_date: string
+          new_items: Json
+          new_notes: string
+          new_subject: string
+          new_tax_label: string
+          new_tax_mode: Database["public"]["Enums"]["document_tax_mode"]
+          new_tax_rate: number
+          new_terms_conditions: string
+          target_invoice_id: string
+        }
+        Returns: {
+          amount_paid: number
+          balance_due: number
+          cancellation_reason: string | null
+          cancelled_at: string | null
+          client_id: string
+          client_snapshot: Json
+          company_snapshot: Json
+          created_at: string
+          created_by: string
+          currency: string
+          discount_total: number
+          discount_type: Database["public"]["Enums"]["discount_type"]
+          discount_value: number
+          due_date: string
+          grand_total: number
+          id: string
+          invoice_number: string | null
+          issue_date: string
+          issued_at: string | null
+          issued_by: string | null
+          lock_version: number
+          notes: string | null
+          snapshot_frozen_at: string | null
+          snapshot_version: number
+          source_quotation_id: string | null
+          status: Database["public"]["Enums"]["invoice_status"]
+          subject: string
+          subtotal: number
+          tax_label: string
+          tax_mode: Database["public"]["Enums"]["document_tax_mode"]
+          tax_rate: number
+          tax_total: number
+          taxable_subtotal: number
+          terms_conditions: string
+          updated_at: string
+          updated_by: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "invoices"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      update_quotation: {
+        Args: {
+          expected_lock_version: number
+          new_assigned_to: string
+          new_client_id: string
+          new_currency: string
+          new_discount_type: Database["public"]["Enums"]["discount_type"]
+          new_discount_value: number
+          new_expiry_date: string
+          new_introduction: string
+          new_issue_date: string
+          new_items: Json
+          new_notes: string
+          new_subject: string
+          new_tax_label: string
+          new_tax_mode: Database["public"]["Enums"]["document_tax_mode"]
+          new_tax_rate: number
+          new_terms_conditions: string
+          target_quotation_id: string
+        }
+        Returns: {
+          accepted_at: string | null
+          assigned_to: string | null
+          cancellation_reason: string | null
+          cancelled_at: string | null
+          client_id: string
+          client_snapshot: Json
+          company_snapshot: Json
+          converted_at: string | null
+          created_at: string
+          created_by: string
+          currency: string
+          discount_total: number
+          discount_type: Database["public"]["Enums"]["discount_type"]
+          discount_value: number
+          expired_at: string | null
+          expiry_date: string
+          grand_total: number
+          id: string
+          introduction: string | null
+          issue_date: string
+          lock_version: number
+          notes: string | null
+          quote_number: string
+          rejected_at: string | null
+          revision_number: number
+          root_quotation_id: string | null
+          sent_at: string | null
+          snapshot_frozen_at: string | null
+          snapshot_version: number
+          status: Database["public"]["Enums"]["quotation_status"]
+          subject: string
+          subtotal: number
+          supersedes_quotation_id: string | null
+          tax_label: string
+          tax_mode: Database["public"]["Enums"]["document_tax_mode"]
+          tax_rate: number
+          tax_total: number
+          taxable_subtotal: number
+          terms_conditions: string
+          updated_at: string
+          updated_by: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "quotations"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
     }
     Enums: {
       app_role: "administrator" | "staff" | "accountant" | "viewer"
       client_status: "active" | "archived"
       client_type: "individual" | "company"
+      discount_type: "none" | "percentage" | "fixed"
+      document_item_type: "service" | "product" | "fee" | "other"
+      document_tax_mode: "exclusive" | "inclusive"
+      invoice_status: "draft" | "issued" | "cancelled"
       profile_status: "active" | "inactive"
+      quotation_status:
+        | "draft"
+        | "sent"
+        | "accepted"
+        | "rejected"
+        | "expired"
+        | "cancelled"
+        | "converted"
+        | "superseded"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -775,7 +2033,21 @@ export const Constants = {
       app_role: ["administrator", "staff", "accountant", "viewer"],
       client_status: ["active", "archived"],
       client_type: ["individual", "company"],
+      discount_type: ["none", "percentage", "fixed"],
+      document_item_type: ["service", "product", "fee", "other"],
+      document_tax_mode: ["exclusive", "inclusive"],
+      invoice_status: ["draft", "issued", "cancelled"],
       profile_status: ["active", "inactive"],
+      quotation_status: [
+        "draft",
+        "sent",
+        "accepted",
+        "rejected",
+        "expired",
+        "cancelled",
+        "converted",
+        "superseded",
+      ],
     },
   },
 } as const

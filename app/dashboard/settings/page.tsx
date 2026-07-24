@@ -1,5 +1,9 @@
-import { updateCompanySettingsAction } from "@/app/dashboard/settings/actions";
+import {
+  updateCompanySettingsAction,
+  updateDocumentDefaultsAction,
+} from "@/app/dashboard/settings/actions";
 import { CompanySettingsForm } from "@/components/dashboard/settings/CompanySettingsForm";
+import { Notice } from "@/components/dashboard/Notice";
 import { PageHeader } from "@/components/dashboard/PageHeader";
 import { requireRoles } from "@/lib/dashboard/access";
 import { formatDateTime } from "@/lib/dashboard/format";
@@ -9,7 +13,12 @@ function jsonText(value: unknown) {
   return JSON.stringify(value || {}, null, 2);
 }
 
-export default async function SettingsPage() {
+export default async function SettingsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ message?: string; error?: string }>;
+}) {
+  const notices = await searchParams;
   const { profile, supabase } = await requireRoles([
     "administrator",
     "accountant",
@@ -71,12 +80,73 @@ export default async function SettingsPage() {
             : "Review the central company configuration. Accountant access is read-only."
         }
       />
+      <Notice message={notices.message} />
+      <Notice message={notices.error} tone="error" />
 
       {profile.role === "administrator" ? (
-        <CompanySettingsForm
-          action={updateCompanySettingsAction.bind(null, settings.id)}
-          initialValues={initialValues}
-        />
+        <>
+          <CompanySettingsForm
+            action={updateCompanySettingsAction.bind(null, settings.id)}
+            initialValues={initialValues}
+          />
+          <form
+            className="dashboard-panel dashboard-form"
+            action={updateDocumentDefaultsAction}
+          >
+            <input type="hidden" name="settingsId" value={settings.id} />
+            <div className="dashboard-panel-header">
+              <div>
+                <p className="dashboard-eyebrow">Phase 4 document defaults</p>
+                <h2>Quotation and invoice defaults</h2>
+              </div>
+            </div>
+            <div className="dashboard-form-grid">
+              <label className="dashboard-field">
+                <span>Quotation validity (days)</span>
+                <input
+                  type="number"
+                  name="quoteValidityDays"
+                  min="1"
+                  max="3650"
+                  defaultValue={settings.default_quote_validity_days}
+                  required
+                />
+              </label>
+              <label className="dashboard-field">
+                <span>Invoice due period (days)</span>
+                <input
+                  type="number"
+                  name="invoiceDueDays"
+                  min="0"
+                  max="3650"
+                  defaultValue={settings.default_invoice_due_days}
+                  required
+                />
+              </label>
+              <label className="dashboard-field">
+                <span>Default tax label</span>
+                <input
+                  name="taxLabel"
+                  maxLength={40}
+                  defaultValue={settings.default_tax_label}
+                  required
+                />
+              </label>
+              <label className="dashboard-field">
+                <span>Default tax mode</span>
+                <select name="taxMode" defaultValue={settings.default_tax_mode}>
+                  <option value="exclusive">Tax exclusive</option>
+                  <option value="inclusive">Tax inclusive</option>
+                </select>
+              </label>
+            </div>
+            <div className="dashboard-form-actions">
+              <button className="dashboard-button dashboard-button-primary" type="submit">
+                Save document defaults
+              </button>
+            </div>
+          </form>
+        </>
       ) : (
         <section className="dashboard-panel">
           <div className="dashboard-panel-header">
@@ -104,6 +174,12 @@ export default async function SettingsPage() {
               "Receipt prefix": settings.receipt_prefix,
               "Land prefix": settings.land_listing_prefix,
               "Client prefix": settings.client_prefix,
+              "Quote validity":
+                String(settings.default_quote_validity_days) + " days",
+              "Invoice due period":
+                String(settings.default_invoice_due_days) + " days",
+              "Document tax label": settings.default_tax_label,
+              "Document tax mode": settings.default_tax_mode,
               "Logo path": settings.logo_path,
             }).map(([label, value]) => (
               <div className="dashboard-detail" key={label}>
