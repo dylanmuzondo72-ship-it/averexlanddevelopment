@@ -10,7 +10,7 @@ const routes = [
   ["/available-land", "Verified published land listings"],
   ["/projects", "Representative service scenarios"],
   ["/contact", "Start with the property, location and objective"],
-  ["/login", "Secure login will be enabled in Phase 2."],
+  ["/login", "Sign in to manage Averex business records."],
 ];
 
 const imagePaths = [

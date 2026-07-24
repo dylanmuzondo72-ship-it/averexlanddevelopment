@@ -34,6 +34,9 @@ Vercel Preview variables were configured for:
 
 - Environment: `Preview`
 - Git branch: `feature/averex-business-system`
+- The Supabase URL and publishable key were revalidated against `.env.local`
+  using length and SHA-256 fingerprints.
+- `NEXT_PUBLIC_SITE_URL` uses the stable branch Preview alias.
 
 Values are intentionally not recorded in this document.
 
@@ -41,14 +44,14 @@ Values are intentionally not recorded in this document.
 
 - Stable branch alias:
   - `https://averexlanddevelopme-git-f538f0-dylanmuzondo72-ship-its-projects.vercel.app`
-- Fresh Preview deployment after env setup:
-  - `https://averexlanddevelopment-8yoxw3oaj.vercel.app`
-- Temporary protected-preview access URL:
-  - `https://averexlanddevelopment-8yoxw3oaj.vercel.app/?_vercel_share=aEE8o3QYJlSbSpoZWExfuNouyn9tlc6T`
+- Fresh Preview deployment after the corrected env setup:
+  - `https://averexlanddevelopment-ni2gsgb1p.vercel.app`
 - Vercel build logs confirmed:
   - `Detected Next.js version: 15.5.21`
   - App Router routes were generated.
   - Deployment reached `READY`.
+- Supabase Auth logs confirmed the Preview password-reset request and recovery
+  email send.
 
 ## Routes created
 
@@ -68,6 +71,20 @@ Values are intentionally not recorded in this document.
 - `role`: `administrator`
 - `status`: `active`
 - The user, credentials, UUID, role and status were not changed.
+
+## Manual authentication QA
+
+Manual authentication QA passed on 2026-07-24:
+
+- Administrator login succeeds.
+- Successful login redirects to `/dashboard`.
+- The dashboard displays `Dylan Muzondo` and `Administrator`.
+- The authenticated session remains active after refresh.
+- Logout succeeds.
+- Opening `/dashboard` after logout redirects to
+  `/login?next=%2Fdashboard`.
+- Forgot-password submits successfully to the correct Supabase project.
+- Invalid credentials display a clear authentication error.
 
 ## Tests completed
 
@@ -91,19 +108,14 @@ Rerun after Vercel Preview environment-variable setup on 2026-07-24:
 
 ## Known limitations
 
-- Manual credential-based authentication QA is still required in the browser:
-  - invalid login error
-  - successful login redirect to `/dashboard`
-  - dashboard identity display
-  - session persistence after refresh
-  - logout and protected-route redirect after logout
 - Supabase Auth redirect URL allow-list should be reviewed when additional Preview aliases are used.
 - Phase 2 only establishes auth, profile/settings/activity foundations and a dashboard shell. Business modules begin in later phases.
+- Phase 3 has not started.
 
 ## Latest commit
 
-- Latest Phase 2 implementation commit before this handoff document:
-  - `5118b21 fix: keep preview auth routes resilient`
+- Latest Phase 2 commit before this closing handoff update:
+  - `ff15fae docs: add phase 2 handoff`
 
 ## Recommended Phase 3 work
 
