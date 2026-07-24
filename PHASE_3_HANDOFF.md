@@ -120,6 +120,10 @@ Completed locally:
 - `npm run test:smoke`
 - `npm run build`
 
+The complete check set was rerun successfully during Phase 3 closeout on
+2026-07-24. Vitest reported 18 passing tests across the Phase 1 regression and
+Phase 3 suites.
+
 Phase 3 unit coverage includes role permissions, client validation and filter
 parsing. Database tests cover administrator, staff, accountant, viewer and
 inactive-role boundaries; client references; create/update/archive/restore;
@@ -142,32 +146,25 @@ logged-out dashboard redirect.
 
 ## Preview
 
-- Stable feature-branch alias:
+- Final working Preview URL:
   `https://averexlanddevelopme-git-f538f0-dylanmuzondo72-ship-its-projects.vercel.app`
-- A fresh Preview deployment is created from the final Phase 3 branch tip after
-  all local checks pass.
-- The closing Phase 3 commit SHA and deployment-specific URL are reported in the
-  final delivery message.
+- Validated Phase 3 implementation deployment:
+  `https://averexlanddevelopment-or0003pdm.vercel.app`
+- Vercel detected Next.js 15.5.21, completed the deployment successfully and
+  returned no `5xx` runtime entries during Preview verification.
 
-## Manual QA required
+## Manual QA passed
 
-Use the Preview deployment without sharing credentials:
+Manual QA passed on 2026-07-24:
 
-1. Confirm administrator login, session refresh, logout and logged-out redirect.
-2. Confirm the dashboard identifies Dylan Muzondo as Administrator.
-3. Check the dashboard drawer at 390px, tablet layout at 768px and desktop at
-   1440px.
-4. Create a client only with verified business information, then test edit,
-   archive and restore.
-5. Confirm a duplicate phone or email produces a warning before saving.
-6. Test staff, accountant and viewer permissions with dedicated non-production
-   Auth accounts if those accounts are available.
-7. Test inactive-profile blocking with a non-administrator account. Do not
-   deactivate the current administrator.
-8. Verify the final administrator cannot be demoted or deactivated.
-9. Confirm accountant settings are read-only and administrator settings are
-   editable before making any intentional real setting change.
-10. Review client and profile changes in the activity page.
+- Administrator login works and the dashboard opens correctly.
+- Client creation and editing work.
+- Client archive and restore work.
+- Duplicate warnings work.
+- Staff, Company Settings, Activity and My Profile pages work.
+- Activity logs record changes.
+- Mobile dashboard navigation works.
+- The approved public website remains unchanged.
 
 ## Known limitations
 
