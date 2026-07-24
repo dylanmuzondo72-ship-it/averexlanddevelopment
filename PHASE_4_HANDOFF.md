@@ -102,7 +102,7 @@ Required manual checks before Phase 5:
 
 ## Preview and Commit
 
-- Preview URL: https://averexlanddevelopment-a4yxw67nl.vercel.app
+- Preview URL: https://averexlanddevelopment-rd98kz9vy.vercel.app
 - Final implementation commit: 8ca94b7
 - Handoff documentation commit: pending
 
