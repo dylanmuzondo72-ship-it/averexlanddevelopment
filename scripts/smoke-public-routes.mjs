@@ -64,6 +64,28 @@ async function expectAsset(path) {
   }
 }
 
+async function expectDashboardProtection() {
+  const response = await fetch(`${baseUrl}/dashboard`, {
+    redirect: "manual",
+  });
+  if (response.status !== 307) {
+    throw new Error(
+      `/dashboard returned ${response.status}, expected a 307 redirect`,
+    );
+  }
+  const location = response.headers.get("location");
+  const redirectUrl = location ? new URL(location, baseUrl) : null;
+  if (
+    !redirectUrl ||
+    `${redirectUrl.pathname}${redirectUrl.search}` !==
+      "/login?next=%2Fdashboard"
+  ) {
+    throw new Error(
+      `/dashboard redirect changed: ${location}`,
+    );
+  }
+}
+
 async function main() {
   const nextBin = fileURLToPath(
     new URL("../node_modules/next/dist/bin/next", import.meta.url),
@@ -107,6 +129,7 @@ async function main() {
     if (!loginHtml.includes("noindex") || !loginHtml.includes("nofollow")) {
       throw new Error("Login page is missing noindex/nofollow metadata");
     }
+    await expectDashboardProtection();
     const missingListing = await fetch(`${baseUrl}/available-land/unknown-listing`);
     if (missingListing.status !== 404) {
       throw new Error(`Unknown listing returned ${missingListing.status}, expected 404`);

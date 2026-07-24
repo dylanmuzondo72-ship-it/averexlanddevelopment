@@ -9,6 +9,7 @@
     "lint": "eslint . --max-warnings=0",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
+    "test:db": "supabase db query --linked --file supabase/tests/phase_3_security.test.sql && supabase db query --linked --file supabase/tests/phase_3_final_admin_definition.test.sql",
     "test:smoke": "node scripts/smoke-public-routes.mjs"
   },
   "dependencies": {
