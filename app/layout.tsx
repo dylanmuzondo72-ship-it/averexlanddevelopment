@@ -1,7 +1,4 @@
 import type { Metadata } from "next";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
-import { WhatsAppFloat } from "@/components/WhatsAppFloat";
 import { companySettings } from "@/lib/company";
 import { getRobotsForEnvironment, getSiteUrl } from "@/lib/seo";
 import "./globals.css";
@@ -57,10 +54,7 @@ export default function RootLayout({
         <a className="skip-link" href="#main">
           Skip to content
         </a>
-        <Header />
-        <main id="main">{children}</main>
-        <Footer />
-        <WhatsAppFloat />
+        {children}
       </body>
     </html>
   );

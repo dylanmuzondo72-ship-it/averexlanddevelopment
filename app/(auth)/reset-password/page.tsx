@@ -111,6 +111,11 @@ export default async function ResetPasswordPage({
             </form>
           </>
         )}
+        <div className="auth-links auth-links-center">
+          <Link href="/" scroll>
+            Return to public website
+          </Link>
+        </div>
       </div>
     </section>
   );

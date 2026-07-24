@@ -120,6 +120,9 @@ async function main() {
     if (!homeHtml.includes("Staff Portal") || !homeHtml.includes("href=\"/login\"")) {
       throw new Error("Staff Portal navigation link is missing");
     }
+    if (!homeHtml.includes('class="site-header"') || !homeHtml.includes('class="site-footer"')) {
+      throw new Error("Public chrome is missing from the homepage");
+    }
     if (homeHtml.includes("Staff Login")) {
       throw new Error("Staff Login label should be renamed to Staff Portal");
     }
@@ -128,6 +131,12 @@ async function main() {
     }
     if (!loginHtml.includes("noindex") || !loginHtml.includes("nofollow")) {
       throw new Error("Login page is missing noindex/nofollow metadata");
+    }
+    if (loginHtml.includes('class="site-header"') || loginHtml.includes('class="site-footer"') || loginHtml.includes('class="whatsapp-float"')) {
+      throw new Error("Login page inherited public chrome");
+    }
+    if (!loginHtml.includes("Return to public site")) {
+      throw new Error("Login page is missing its public-site return link");
     }
     await expectDashboardProtection();
     const missingListing = await fetch(`${baseUrl}/available-land/unknown-listing`);
