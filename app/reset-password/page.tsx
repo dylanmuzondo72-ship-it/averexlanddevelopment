@@ -26,10 +26,18 @@ export default async function ResetPasswordPage({
   searchParams,
 }: ResetPasswordPageProps) {
   const params = await searchParams;
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  let configError = false;
+  let userEmail: string | undefined;
+
+  try {
+    const supabase = await createClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    userEmail = user?.email;
+  } catch {
+    configError = true;
+  }
 
   return (
     <section className="login-placeholder auth-page">
@@ -38,12 +46,18 @@ export default async function ResetPasswordPage({
         <p className="eyebrow">NEW PASSWORD</p>
         <h1>Set a new password</h1>
 
-        {!user ? (
+        {!userEmail ? (
           <>
-            <p>
-              This page requires a valid password-reset session. Request a new
-              reset link if your link has expired.
-            </p>
+            {configError ? (
+              <p className="auth-notice auth-notice-error">
+                The staff portal is not configured for this deployment yet.
+              </p>
+            ) : (
+              <p>
+                This page requires a valid password-reset session. Request a new
+                reset link if your link has expired.
+              </p>
+            )}
             <div className="auth-links auth-links-center">
               <Link className="btn btn-primary" href="/forgot-password">
                 Request Reset Link
@@ -54,7 +68,7 @@ export default async function ResetPasswordPage({
         ) : (
           <>
             <p>
-              Choose a strong password for {user.email}. Passwords must contain
+              Choose a strong password for {userEmail}. Passwords must contain
               at least 8 characters.
             </p>
 

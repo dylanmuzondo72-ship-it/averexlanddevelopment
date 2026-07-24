@@ -31,6 +31,10 @@ function withMessage(
   return `${path}?${params.toString()}`;
 }
 
+function portalConfigMessage() {
+  return "The staff portal is not configured for this deployment yet.";
+}
+
 export async function signInAction(formData: FormData) {
   const email = getString(formData, "email");
   const password = getString(formData, "password");
@@ -44,7 +48,18 @@ export async function signInAction(formData: FormData) {
     );
   }
 
-  const supabase = await createClient();
+  let supabase;
+
+  try {
+    supabase = await createClient();
+  } catch {
+    redirect(
+      withMessage("/login", "error", portalConfigMessage(), {
+        next,
+      }),
+    );
+  }
+
   const { error } = await supabase.auth.signInWithPassword({
     email,
     password,
@@ -62,8 +77,13 @@ export async function signInAction(formData: FormData) {
 }
 
 export async function signOutAction() {
-  const supabase = await createClient();
-  await supabase.auth.signOut();
+  try {
+    const supabase = await createClient();
+    await supabase.auth.signOut();
+  } catch {
+    // Missing preview env vars should not trap a user on the logout endpoint.
+  }
+
   redirect(withMessage("/login", "message", "You have been signed out."));
 }
 
@@ -76,7 +96,16 @@ export async function requestPasswordResetAction(formData: FormData) {
     );
   }
 
-  const supabase = await createClient();
+  let supabase;
+
+  try {
+    supabase = await createClient();
+  } catch {
+    redirect(
+      withMessage("/forgot-password", "error", portalConfigMessage()),
+    );
+  }
+
   const redirectTo = `${getSiteUrl()}/auth/callback?next=/reset-password`;
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
     redirectTo,
@@ -121,7 +150,14 @@ export async function updatePasswordAction(formData: FormData) {
     );
   }
 
-  const supabase = await createClient();
+  let supabase;
+
+  try {
+    supabase = await createClient();
+  } catch {
+    redirect(withMessage("/reset-password", "error", portalConfigMessage()));
+  }
+
   const { error } = await supabase.auth.updateUser({ password });
 
   if (error) {

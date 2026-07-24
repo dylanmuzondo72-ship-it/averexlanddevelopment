@@ -2,8 +2,14 @@ import { NextResponse, type NextRequest } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: NextRequest) {
-  const supabase = await createClient();
-  await supabase.auth.signOut();
+  try {
+    const supabase = await createClient();
+    await supabase.auth.signOut();
+  } catch {
+    // Allow logout redirects even when preview auth env vars are not set.
+  }
 
-  return NextResponse.redirect(new URL("/login?message=You+have+been+signed+out.", request.url));
+  return NextResponse.redirect(
+    new URL("/login?message=You+have+been+signed+out.", request.url),
+  );
 }

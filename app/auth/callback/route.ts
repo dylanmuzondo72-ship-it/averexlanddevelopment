@@ -15,8 +15,17 @@ export async function GET(request: NextRequest) {
   const next = safeNextPath(requestUrl.searchParams.get("next"));
 
   if (code) {
-    const supabase = await createClient();
-    await supabase.auth.exchangeCodeForSession(code);
+    try {
+      const supabase = await createClient();
+      await supabase.auth.exchangeCodeForSession(code);
+    } catch {
+      const errorUrl = new URL("/login", request.url);
+      errorUrl.searchParams.set(
+        "error",
+        "The staff portal is not configured for this deployment yet.",
+      );
+      return NextResponse.redirect(errorUrl);
+    }
   }
 
   return NextResponse.redirect(new URL(next, request.url));
