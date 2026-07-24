@@ -7,10 +7,8 @@ extra_search_path = ["public", "extensions"]
 
 [auth]
 enabled = true
-site_url = "http://localhost:3000"
+site_url = "https://averexlanddevelopment.vercel.app"
 additional_redirect_urls = [
-  "http://localhost:3000/auth/callback",
-  "http://localhost:3000/reset-password",
-  "https://averexlanddevelopment.vercel.app/auth/callback",
-  "https://averexlanddevelopment.vercel.app/reset-password",
+  "http://localhost:3000/**",
+  "https://averexlanddevelopment.vercel.app/**",
 ]
