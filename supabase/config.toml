@@ -1,0 +1,16 @@
+project_id = "iqakwzkaiyzzigjldwkh"
+
+[api]
+enabled = true
+schemas = ["public"]
+extra_search_path = ["public", "extensions"]
+
+[auth]
+enabled = true
+site_url = "http://localhost:3000"
+additional_redirect_urls = [
+  "http://localhost:3000/auth/callback",
+  "http://localhost:3000/reset-password",
+  "https://averexlanddevelopment.vercel.app/auth/callback",
+  "https://averexlanddevelopment.vercel.app/reset-password",
+]
