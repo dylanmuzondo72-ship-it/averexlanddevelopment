@@ -4,6 +4,9 @@
 
 Phase 5 is implemented on `feature/averex-business-system` without changing `main` or creating `phase-5-complete`. Supabase project: `iqakwzkaiyzzigjldwkh`.
 
+Final implementation commit: `802dd54f090abc50c70594123b90efe241befc05`
+Canonical Preview: https://averexlanddevelopment-feature-averex-business-system.vercel.app
+
 ## Migration
 
 - `20260726220000_phase_5_payments_receipts.sql`
@@ -63,7 +66,7 @@ Passed:
 - `npm run build`
 - Supabase security/performance review: no new security issue; performance remains clear. Existing warning: `app_private.calculate_document_totals` is marked immutable while using a stable expression.
 
-The complete application suite passes locally. Final Preview deployment and manual QA remain before Phase 5 closeout.
+The complete application suite passes locally. The final Preview deployment is READY; credential-based manual QA remains before Phase 5 closeout.
 
 ## Manual QA
 
