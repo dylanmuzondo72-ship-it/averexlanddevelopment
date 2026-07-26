@@ -1,0 +1,5 @@
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { PageHeader } from "@/components/dashboard/PageHeader";
+import { requireDashboardUser } from "@/lib/dashboard/access";
+export default async function ReceiptDetailsPage({params}:{params:Promise<{id:string}>}){const {id}=await params;const {supabase}=await requireDashboardUser();const {data:receipt}=await supabase.from("receipts").select("*").eq("id",id).maybeSingle();if(!receipt)notFound();return <div className="dashboard-content"><PageHeader eyebrow={receipt.receipt_number} title="Receipt" description="Immutable payment receipt" actions={<Link className="dashboard-button dashboard-button-primary" href={`/dashboard/receipts/${id}/print`}>Print / Save as PDF</Link>}/><section className="dashboard-panel"><pre className="dashboard-document-json">{JSON.stringify({receipt:receipt.receipt_number,amount:receipt.payment_amount,currency:receipt.currency,date:receipt.payment_date,status:receipt.status},null,2)}</pre></section></div>}

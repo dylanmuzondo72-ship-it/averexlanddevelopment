@@ -52,6 +52,7 @@ export default async function InvoiceDetailsPage({
             <Link className="dashboard-button dashboard-button-secondary" href="/dashboard/invoices">Back to invoices</Link>
             <Link className="dashboard-button dashboard-button-secondary" href={"/dashboard/invoices/" + invoice.id + "/print"}>Open printable view</Link>
             <PrintButton />
+            {mayManage && invoice.status === "issued" && invoice.balance_due > 0 && <Link className="dashboard-button dashboard-button-primary" href={"/dashboard/payments/new?invoice=" + invoice.id}>Record payment</Link>}
             {mayManage && invoice.status === "draft" && <Link className="dashboard-button dashboard-button-primary" href={"/dashboard/invoices/" + invoice.id + "/edit"}>Edit draft</Link>}
           </>
         }

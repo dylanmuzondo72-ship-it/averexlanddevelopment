@@ -177,6 +177,7 @@ export type Database = {
           invoice_prefix: string
           land_listing_prefix: string
           logo_path: string | null
+          payment_prefix: string
           primary_email: string
           primary_phone: string
           quote_prefix: string
@@ -211,6 +212,7 @@ export type Database = {
           invoice_prefix?: string
           land_listing_prefix?: string
           logo_path?: string | null
+          payment_prefix?: string
           primary_email: string
           primary_phone: string
           quote_prefix?: string
@@ -245,6 +247,7 @@ export type Database = {
           invoice_prefix?: string
           land_listing_prefix?: string
           logo_path?: string | null
+          payment_prefix?: string
           primary_email?: string
           primary_phone?: string
           quote_prefix?: string
@@ -354,6 +357,7 @@ export type Database = {
           issued_by: string | null
           lock_version: number
           notes: string | null
+          payment_state: Database["public"]["Enums"]["payment_state"]
           snapshot_frozen_at: string | null
           snapshot_version: number
           source_quotation_id: string | null
@@ -392,6 +396,7 @@ export type Database = {
           issued_by?: string | null
           lock_version?: number
           notes?: string | null
+          payment_state?: Database["public"]["Enums"]["payment_state"]
           snapshot_frozen_at?: string | null
           snapshot_version?: number
           source_quotation_id?: string | null
@@ -430,6 +435,7 @@ export type Database = {
           issued_by?: string | null
           lock_version?: number
           notes?: string | null
+          payment_state?: Database["public"]["Enums"]["payment_state"]
           snapshot_frozen_at?: string | null
           snapshot_version?: number
           source_quotation_id?: string | null
@@ -477,6 +483,175 @@ export type Database = {
           {
             foreignKeyName: "invoices_updated_by_fkey"
             columns: ["updated_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      payment_allocations: {
+        Row: {
+          allocated_amount: number
+          created_at: string
+          id: string
+          invoice_id: string
+          payment_id: string
+        }
+        Insert: {
+          allocated_amount: number
+          created_at?: string
+          id?: string
+          invoice_id: string
+          payment_id: string
+        }
+        Update: {
+          allocated_amount?: number
+          created_at?: string
+          id?: string
+          invoice_id?: string
+          payment_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payment_allocations_invoice_id_fkey"
+            columns: ["invoice_id"]
+            isOneToOne: false
+            referencedRelation: "invoices"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "payment_allocations_payment_id_fkey"
+            columns: ["payment_id"]
+            isOneToOne: true
+            referencedRelation: "payments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      payment_proofs: {
+        Row: {
+          file_size: number
+          id: string
+          mime_type: string
+          original_filename: string
+          payment_id: string
+          storage_path: string
+          uploaded_at: string
+          uploaded_by: string
+        }
+        Insert: {
+          file_size: number
+          id?: string
+          mime_type: string
+          original_filename: string
+          payment_id: string
+          storage_path: string
+          uploaded_at?: string
+          uploaded_by: string
+        }
+        Update: {
+          file_size?: number
+          id?: string
+          mime_type?: string
+          original_filename?: string
+          payment_id?: string
+          storage_path?: string
+          uploaded_at?: string
+          uploaded_by?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payment_proofs_payment_id_fkey"
+            columns: ["payment_id"]
+            isOneToOne: false
+            referencedRelation: "payments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "payment_proofs_uploaded_by_fkey"
+            columns: ["uploaded_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      payments: {
+        Row: {
+          amount: number
+          client_id: string
+          created_at: string
+          currency: string
+          external_reference: string | null
+          id: string
+          notes: string | null
+          other_method_description: string | null
+          payment_date: string
+          payment_method: string
+          payment_reference: string
+          recorded_by: string
+          reversal_reason: string | null
+          reversed_at: string | null
+          reversed_by: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          amount: number
+          client_id: string
+          created_at?: string
+          currency: string
+          external_reference?: string | null
+          id?: string
+          notes?: string | null
+          other_method_description?: string | null
+          payment_date: string
+          payment_method: string
+          payment_reference: string
+          recorded_by: string
+          reversal_reason?: string | null
+          reversed_at?: string | null
+          reversed_by?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          amount?: number
+          client_id?: string
+          created_at?: string
+          currency?: string
+          external_reference?: string | null
+          id?: string
+          notes?: string | null
+          other_method_description?: string | null
+          payment_date?: string
+          payment_method?: string
+          payment_reference?: string
+          recorded_by?: string
+          reversal_reason?: string | null
+          reversed_at?: string | null
+          reversed_by?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payments_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "payments_recorded_by_fkey"
+            columns: ["recorded_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "payments_reversed_by_fkey"
+            columns: ["reversed_by"]
             isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
@@ -759,6 +934,97 @@ export type Database = {
           },
         ]
       }
+      receipts: {
+        Row: {
+          allocation_snapshot: Json
+          client_id: string
+          client_snapshot: Json
+          company_snapshot: Json
+          created_at: string
+          currency: string
+          external_reference: string | null
+          id: string
+          invoice_total: number
+          issued_at: string
+          issued_by: string
+          payment_amount: number
+          payment_date: string
+          payment_id: string
+          payment_method: string
+          receipt_number: string
+          remaining_balance: number
+          reversed_at: string | null
+          status: string
+          total_paid_after: number
+        }
+        Insert: {
+          allocation_snapshot: Json
+          client_id: string
+          client_snapshot: Json
+          company_snapshot: Json
+          created_at?: string
+          currency: string
+          external_reference?: string | null
+          id?: string
+          invoice_total: number
+          issued_at?: string
+          issued_by: string
+          payment_amount: number
+          payment_date: string
+          payment_id: string
+          payment_method: string
+          receipt_number: string
+          remaining_balance: number
+          reversed_at?: string | null
+          status?: string
+          total_paid_after: number
+        }
+        Update: {
+          allocation_snapshot?: Json
+          client_id?: string
+          client_snapshot?: Json
+          company_snapshot?: Json
+          created_at?: string
+          currency?: string
+          external_reference?: string | null
+          id?: string
+          invoice_total?: number
+          issued_at?: string
+          issued_by?: string
+          payment_amount?: number
+          payment_date?: string
+          payment_id?: string
+          payment_method?: string
+          receipt_number?: string
+          remaining_balance?: number
+          reversed_at?: string | null
+          status?: string
+          total_paid_after?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "receipts_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "receipts_issued_by_fkey"
+            columns: ["issued_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "receipts_payment_id_fkey"
+            columns: ["payment_id"]
+            isOneToOne: true
+            referencedRelation: "payments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
@@ -819,6 +1085,7 @@ export type Database = {
           issued_by: string | null
           lock_version: number
           notes: string | null
+          payment_state: Database["public"]["Enums"]["payment_state"]
           snapshot_frozen_at: string | null
           snapshot_version: number
           source_quotation_id: string | null
@@ -866,6 +1133,7 @@ export type Database = {
           issued_by: string | null
           lock_version: number
           notes: string | null
+          payment_state: Database["public"]["Enums"]["payment_state"]
           snapshot_frozen_at: string | null
           snapshot_version: number
           source_quotation_id: string | null
@@ -971,6 +1239,7 @@ export type Database = {
           issued_by: string | null
           lock_version: number
           notes: string | null
+          payment_state: Database["public"]["Enums"]["payment_state"]
           snapshot_frozen_at: string | null
           snapshot_version: number
           source_quotation_id: string | null
@@ -1206,6 +1475,7 @@ export type Database = {
           issued_by: string | null
           lock_version: number
           notes: string | null
+          payment_state: Database["public"]["Enums"]["payment_state"]
           snapshot_frozen_at: string | null
           snapshot_version: number
           source_quotation_id: string | null
@@ -1255,6 +1525,19 @@ export type Database = {
         Args: { document_kind: string; target_document_id: string }
         Returns: undefined
       }
+      record_payment: {
+        Args: {
+          new_amount: number
+          new_currency: string
+          new_external_reference?: string
+          new_notes?: string
+          new_other_method_description?: string
+          new_payment_date: string
+          new_payment_method: string
+          target_invoice_id: string
+        }
+        Returns: Json
+      }
       refresh_invoice_snapshots: {
         Args: { expected_lock_version: number; target_invoice_id: string }
         Returns: {
@@ -1280,6 +1563,7 @@ export type Database = {
           issued_by: string | null
           lock_version: number
           notes: string | null
+          payment_state: Database["public"]["Enums"]["payment_state"]
           snapshot_frozen_at: string | null
           snapshot_version: number
           source_quotation_id: string | null
@@ -1353,6 +1637,10 @@ export type Database = {
           isOneToOne: true
           isSetofReturn: false
         }
+      }
+      reverse_payment: {
+        Args: { reason: string; target_payment_id: string }
+        Returns: Json
       }
       search_activity_logs: {
         Args: {
@@ -1685,6 +1973,7 @@ export type Database = {
           invoice_prefix: string
           land_listing_prefix: string
           logo_path: string | null
+          payment_prefix: string
           primary_email: string
           primary_phone: string
           quote_prefix: string
@@ -1734,6 +2023,7 @@ export type Database = {
           invoice_prefix: string
           land_listing_prefix: string
           logo_path: string | null
+          payment_prefix: string
           primary_email: string
           primary_phone: string
           quote_prefix: string
@@ -1792,6 +2082,7 @@ export type Database = {
           issued_by: string | null
           lock_version: number
           notes: string | null
+          payment_state: Database["public"]["Enums"]["payment_state"]
           snapshot_frozen_at: string | null
           snapshot_version: number
           source_quotation_id: string | null
@@ -1893,6 +2184,7 @@ export type Database = {
       document_item_type: "service" | "product" | "fee" | "other"
       document_tax_mode: "exclusive" | "inclusive"
       invoice_status: "draft" | "issued" | "cancelled"
+      payment_state: "unpaid" | "partially_paid" | "paid"
       profile_status: "active" | "inactive"
       quotation_status:
         | "draft"
@@ -2037,6 +2329,7 @@ export const Constants = {
       document_item_type: ["service", "product", "fee", "other"],
       document_tax_mode: ["exclusive", "inclusive"],
       invoice_status: ["draft", "issued", "cancelled"],
+      payment_state: ["unpaid", "partially_paid", "paid"],
       profile_status: ["active", "inactive"],
       quotation_status: [
         "draft",

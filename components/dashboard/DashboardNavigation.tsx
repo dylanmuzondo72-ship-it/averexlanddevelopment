@@ -45,6 +45,18 @@ const navigationItems: NavigationItem[] = [
     visible: () => true,
   },
   {
+    href: "/dashboard/payments",
+    label: "Payments",
+    mark: "P",
+    visible: (role) => role === "administrator" || role === "accountant" || role === "staff" || role === "viewer",
+  },
+  {
+    href: "/dashboard/receipts",
+    label: "Receipts",
+    mark: "R",
+    visible: () => true,
+  },
+  {
     href: "/dashboard/staff",
     label: "Staff",
     mark: "S",
@@ -72,7 +84,6 @@ const navigationItems: NavigationItem[] = [
 
 const laterModules = [
   "Land administration",
-  "Payments and receipts",
   "Projects and reports",
 ];
 

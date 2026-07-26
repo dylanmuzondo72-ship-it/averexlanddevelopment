@@ -9,7 +9,7 @@
     "lint": "eslint . --max-warnings=0",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "test:db": "supabase db query --linked --file supabase/tests/phase_3_security.test.sql && supabase db query --linked --file supabase/tests/phase_3_final_admin_definition.test.sql && supabase db query --linked --file supabase/tests/phase_4_financial_calculations.test.sql && supabase db query --linked --file supabase/tests/phase_4_document_workflows.test.sql",
+    "test:db": "supabase db query --linked --file supabase/tests/phase_3_security.test.sql && supabase db query --linked --file supabase/tests/phase_3_final_admin_definition.test.sql && supabase db query --linked --file supabase/tests/phase_4_financial_calculations.test.sql && supabase db query --linked --file supabase/tests/phase_4_document_workflows.test.sql && supabase db query --linked --file supabase/tests/phase_5_payments_receipts.test.sql",
     "test:smoke": "node scripts/smoke-public-routes.mjs"
   },
   "dependencies": {

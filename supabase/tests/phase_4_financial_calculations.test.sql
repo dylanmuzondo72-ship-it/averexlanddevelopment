@@ -28,7 +28,7 @@ begin
   if (
     select array_agg(counter_key order by counter_key)
     from app_private.document_counters
-  ) <> array['invoice', 'quotation']::text[] then
+  ) <> array['invoice', 'payment', 'quotation', 'receipt']::text[] then
     raise exception 'Document counters must use permanent internal keys';
   end if;
 
