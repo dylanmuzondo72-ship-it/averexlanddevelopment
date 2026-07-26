@@ -49,3 +49,24 @@ export async function reversePaymentAction(form: FormData) {
   revalidatePath(`/dashboard/payments/${paymentId}`);
   redirect(`/dashboard/payments/${paymentId}?message=${encodeURIComponent("Payment reversed and invoice balance recalculated.")}`);
 }
+
+export async function uploadPaymentProofAction(form: FormData) {
+  const { supabase, user } = await requireRoles(["administrator", "accountant"]);
+  const paymentId = value(form, "paymentId");
+  const file = form.get("proof");
+  if (!(file instanceof File) || file.size === 0 || file.size > 5 * 1024 * 1024) {
+    redirect(`/dashboard/payments/${paymentId}?error=${encodeURIComponent("Choose a PDF, JPG or PNG proof up to 5 MB.")}`);
+  }
+  const allowed = new Set(["application/pdf", "image/jpeg", "image/png"]);
+  if (!allowed.has(file.type)) redirect(`/dashboard/payments/${paymentId}?error=${encodeURIComponent("That proof file type is not allowed.")}`);
+  const path = `${paymentId}/${crypto.randomUUID()}-${file.name.replace(/[^A-Za-z0-9._-]/g, "_")}`;
+  const uploaded = await supabase.storage.from("payment-proofs").upload(path, file, { contentType: file.type, upsert: false });
+  if (uploaded.error) redirect(`/dashboard/payments/${paymentId}?error=${encodeURIComponent("Proof upload failed. The payment remains valid; try again.")}`);
+  const metadata = await supabase.from("payment_proofs").insert({ payment_id: paymentId, storage_path: path, original_filename: file.name, mime_type: file.type, file_size: file.size, uploaded_by: user.id }).select("id").single();
+  if (metadata.error) {
+    await supabase.storage.from("payment-proofs").remove([path]);
+    redirect(`/dashboard/payments/${paymentId}?error=${encodeURIComponent("Proof metadata could not be saved. The uploaded file was cleaned up; try again.")}`);
+  }
+  revalidatePath(`/dashboard/payments/${paymentId}`);
+  redirect(`/dashboard/payments/${paymentId}?message=${encodeURIComponent("Proof of payment uploaded securely.")}`);
+}

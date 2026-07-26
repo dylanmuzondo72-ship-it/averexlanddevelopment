@@ -7,6 +7,8 @@ Phase 5 is implemented on `feature/averex-business-system` without changing `mai
 ## Migration
 
 - `20260726220000_phase_5_payments_receipts.sql`
+- `20260726223000_phase_5_payment_proof_storage.sql`
+- `20260726223500_phase_5_payment_lint_hardening.sql`
 
 The migration adds `payment_state`, `payment_prefix`, permanent `payment` and `receipt` counters, `payments`, `payment_allocations`, `receipts`, and `payment_proofs` tables. Payment allocations are immutable and support future multi-invoice payments. Receipts store an immutable JSON allocation snapshot; the current UI creates one allocation per payment and displays one invoice.
 
@@ -42,7 +44,7 @@ Receipt printing uses the existing protected browser-print architecture and is l
 
 ## Storage status
 
-The `payment_proofs` metadata table and validation model are present, but the private Supabase `payment-proofs` bucket and storage policies have not been created yet. Proof upload will be completed as a separate protected workflow after the required Supabase Storage action is confirmed. PostgreSQL payment creation does not depend on Storage and proof upload will not reverse valid payments on failure.
+The `payment-proofs` bucket is verified private with a 5 MB limit and PDF/JPEG/PNG MIME restrictions. Storage object policies allow only active administrators and accountants to insert, read, update or delete proof objects. Paths use payment UUIDs and no public URLs are generated. Proof upload is a separate protected action after payment creation; metadata is written only after upload succeeds, and failed metadata writes remove the uploaded file. A failed proof upload never reverses a valid payment.
 
 ## Tests
 
@@ -51,8 +53,11 @@ Passed:
 - `npm run lint`
 - `npm run typecheck`
 - `npm run test:db` including Phase 3, Phase 4 and Phase 5 foundation suites
+- `npm run test:smoke`
+- `npm run build`
+- Supabase security/performance review: no new security issue; performance remains clear. Existing warning: `app_private.calculate_document_totals` is marked immutable while using a stable expression.
 
-The complete application suite and Preview deployment still need to be rerun after the remaining proof-upload and UI hardening work.
+The complete application suite passes locally. Final Preview deployment and manual QA remain before Phase 5 closeout.
 
 ## Manual QA
 
@@ -64,7 +69,7 @@ The complete application suite and Preview deployment still need to be rerun aft
 6. Confirm payment and receipt numbering remains monotonic after prefix changes.
 7. Test administrator, accountant, staff, viewer and inactive-profile access.
 8. Test receipt print view at desktop and mobile widths.
-9. Complete proof upload/access QA after the private Storage bucket is configured.
+9. Upload proof as administrator/accountant, verify authorised access, and confirm staff/viewer denial.
 
 ## Known limitations and next work
 
