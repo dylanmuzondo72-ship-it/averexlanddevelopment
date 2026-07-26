@@ -94,6 +94,11 @@ export default async function DashboardPage({
     { count: sentQuotationCount },
     { count: draftInvoiceCount },
     { count: issuedInvoiceCount },
+    { data: monthPayments },
+    { data: outstandingInvoices },
+    { count: unpaidInvoiceCount },
+    { count: partialInvoiceCount },
+    { count: paidInvoiceCount },
   ] = await Promise.all([
     supabase.rpc("dashboard_overview"),
     supabase
@@ -112,7 +117,18 @@ export default async function DashboardPage({
       .from("invoices")
       .select("id", { count: "exact", head: true })
       .eq("status", "issued"),
+    supabase
+      .from("payments")
+      .select("amount,currency,payment_date")
+      .eq("status", "active")
+      .gte("payment_date", new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString().slice(0, 10)),
+    supabase.from("invoices").select("balance_due").eq("status", "issued").gt("balance_due", 0),
+    supabase.from("invoices").select("id", { count: "exact", head: true }).eq("status", "issued").eq("payment_state", "unpaid"),
+    supabase.from("invoices").select("id", { count: "exact", head: true }).eq("status", "issued").eq("payment_state", "partially_paid"),
+    supabase.from("invoices").select("id", { count: "exact", head: true }).eq("status", "issued").eq("payment_state", "paid"),
   ]);
+  const operationalPaymentsThisMonth = (monthPayments || []).reduce((sum, payment) => sum + Number(payment.amount), 0);
+  const outstandingBalance = (outstandingInvoices || []).reduce((sum, invoice) => sum + Number(invoice.balance_due), 0);
   const overview = parseOverview(data);
   const cards = [
     { label: "Active clients", value: overview.activeClients },
@@ -122,6 +138,11 @@ export default async function DashboardPage({
       label: "Clients created this month",
       value: overview.clientsCreatedThisMonth,
     },
+    { label: "Payments received this month", value: `USD ${operationalPaymentsThisMonth.toFixed(2)}` },
+    { label: "Outstanding invoice balance", value: `USD ${outstandingBalance.toFixed(2)}` },
+    { label: "Unpaid invoices", value: unpaidInvoiceCount || 0 },
+    { label: "Partially paid invoices", value: partialInvoiceCount || 0 },
+    { label: "Paid invoices", value: paidInvoiceCount || 0 },
   ];
 
   return (

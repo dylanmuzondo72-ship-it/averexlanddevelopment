@@ -9,6 +9,8 @@ Phase 5 is implemented on `feature/averex-business-system` without changing `mai
 - `20260726220000_phase_5_payments_receipts.sql`
 - `20260726223000_phase_5_payment_proof_storage.sql`
 - `20260726223500_phase_5_payment_lint_hardening.sql`
+- `20260726224500_phase_5_function_lint_cleanup.sql`
+- `20260726225000_phase_5_payment_function_fix.sql`
 
 The migration adds `payment_state`, `payment_prefix`, permanent `payment` and `receipt` counters, `payments`, `payment_allocations`, `receipts`, and `payment_proofs` tables. Payment allocations are immutable and support future multi-invoice payments. Receipts store an immutable JSON allocation snapshot; the current UI creates one allocation per payment and displays one invoice.
 
@@ -30,7 +32,7 @@ Permanent internal counter keys are `payment` and `receipt`. Human-readable outp
 
 RLS is enabled on all Phase 5 tables. Server RPCs require active administrator or accountant profiles for mutations. Staff receive permitted read summaries only; viewers receive permitted read-only receipt/payment data; inactive profiles are blocked. No service-role key is used.
 
-## Routes
+## Routes and interface coverage
 
 - `/dashboard/payments`
 - `/dashboard/payments/new`
@@ -42,9 +44,13 @@ RLS is enabled on all Phase 5 tables. Server RPCs require active administrator o
 
 Receipt printing uses the existing protected browser-print architecture and is labelled `Print / Save as PDF`; no PDF dependency was added.
 
+Payment and receipt lists provide search, status/method filters, empty states and paged result presentation. Payment details show invoice/receipt references, payment status and proof controls. Receipt details show client, invoice allocation, payment, balance and reversal information. The invoice detail page only exposes Record payment for issued invoices with an outstanding balance.
+
+The dashboard includes live operational payment totals, outstanding balance and unpaid/partially-paid/paid invoice counts. These are operational records, not audited financial statements.
+
 ## Storage status
 
-The `payment-proofs` bucket is verified private with a 5 MB limit and PDF/JPEG/PNG MIME restrictions. Storage object policies allow only active administrators and accountants to insert, read, update or delete proof objects. Paths use payment UUIDs and no public URLs are generated. Proof upload is a separate protected action after payment creation; metadata is written only after upload succeeds, and failed metadata writes remove the uploaded file. A failed proof upload never reverses a valid payment.
+The `payment-proofs` bucket is verified private with a 5 MB limit and PDF/JPEG/PNG MIME restrictions. Storage object policies allow only active administrators and accountants to insert, read, update or delete proof objects. Paths use payment UUIDs and no public URLs are generated. Proof upload is a separate protected action after payment creation; metadata is written only after upload succeeds, failed metadata writes remove the uploaded file, and authorised detail pages use five-minute signed URLs. A failed proof upload never reverses a valid payment. Staff and viewers have no unrestricted proof access.
 
 ## Tests
 
@@ -69,10 +75,10 @@ The complete application suite passes locally. Final Preview deployment and manu
 6. Confirm payment and receipt numbering remains monotonic after prefix changes.
 7. Test administrator, accountant, staff, viewer and inactive-profile access.
 8. Test receipt print view at desktop and mobile widths.
-9. Upload proof as administrator/accountant, verify authorised access, and confirm staff/viewer denial.
+9. Upload proof as administrator/accountant, verify five-minute signed access, and confirm staff/viewer denial.
 
 ## Known limitations and next work
 
-Payment-proof upload/storage policies and signed URL actions remain to be completed. Search/filter/pagination controls, richer receipt detail presentation, dashboard payment metrics, full automated payment edge-case fixtures and final Preview QA remain before Phase 5 closeout. Online gateways, automated delivery, refunds, credit notes, reports and land administration remain out of scope.
+Credential-based payment lifecycle QA remains before Phase 5 closeout. The existing Supabase lint warning for `app_private.calculate_document_totals` remains. Online gateways, automated delivery, refunds, credit notes, reports and land administration remain out of scope.
 
 Recommended next work: finish private proof upload, add full payment/receipt UI coverage and tests, run advisors, deploy one final Preview, complete manual QA, then create `phase-5-complete` only after confirmation.
