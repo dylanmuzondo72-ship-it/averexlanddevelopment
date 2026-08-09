@@ -1,6 +1,6 @@
 export function getSiteUrl() {
   return (
-    process.env.NEXT_PUBLIC_SITE_URL ?? "https://averexlanddevelopment.vercel.app"
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://averexlandsolutions.vercel.app"
   );
 }
 
