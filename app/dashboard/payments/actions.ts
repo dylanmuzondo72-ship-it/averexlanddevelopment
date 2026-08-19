@@ -27,13 +27,23 @@ export async function recordPaymentAction(form: FormData) {
     new_notes: value(form, "notes") || undefined,
   });
   if (result.error || !result.data) {
-    redirect(`/dashboard/invoices/${invoiceId}?error=${encodeURIComponent(result.error?.message || "Payment could not be recorded.")}`);
+    const rawError = result.error?.message || "Payment could not be recorded.";
+    const message = rawError.includes("Issued invoice content is immutable")
+      ? "Payment could not be recorded because the invoice payment workflow needs attention. No payment or receipt was created."
+      : rawError;
+    redirect(`/dashboard/invoices/${invoiceId}?error=${encodeURIComponent(message)}`);
   }
+  const paymentResult = result.data as { receipt?: { id?: string }; payment?: { id?: string } };
+  const receiptId = paymentResult.receipt?.id;
+  const paymentId = paymentResult.payment?.id;
   revalidatePath("/dashboard");
   revalidatePath("/dashboard/payments");
   revalidatePath("/dashboard/receipts");
   revalidatePath(`/dashboard/invoices/${invoiceId}`);
-  redirect(`/dashboard/invoices/${invoiceId}?message=${encodeURIComponent("Payment recorded and receipt issued.")}`);
+  if (receiptId) {
+    redirect(`/dashboard/receipts/${receiptId}?message=${encodeURIComponent("Payment recorded and receipt issued successfully.")}`);
+  }
+  redirect(`/dashboard/payments/${paymentId || ""}?message=${encodeURIComponent("Payment recorded successfully.")}`);
 }
 
 export async function reversePaymentAction(form: FormData) {
