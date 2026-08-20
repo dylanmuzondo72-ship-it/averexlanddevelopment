@@ -7,8 +7,8 @@ extra_search_path = ["public", "extensions"]
 
 [auth]
 enabled = true
-site_url = "https://averexlanddevelopment.vercel.app"
+site_url = "https://averexlandsolutions.com"
 additional_redirect_urls = [
   "http://localhost:3000/**",
-  "https://averexlanddevelopment.vercel.app/**",
+  "https://averexlandsolutions.com/**",
 ]
