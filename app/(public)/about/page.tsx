@@ -4,6 +4,7 @@ import { companySettings } from "@/lib/company";
 
 export const metadata: Metadata = {
   title: "About",
+  alternates: { canonical: "/about" },
   description:
     "Learn about Averex Land Solutions, a Zimbabwean land, property and development-services company led by CEO B. Mungofa.",
 };

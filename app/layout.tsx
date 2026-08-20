@@ -7,6 +7,9 @@ const siteUrl = getSiteUrl();
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
+  alternates: {
+    canonical: siteUrl,
+  },
   title: {
     default: "Averex Land Solutions | Land & Property Advisory",
     template: "%s | Averex Land Solutions",

@@ -3,6 +3,7 @@ import { ContactSection } from "@/components/ContactSection";
 
 export const metadata: Metadata = {
   title: "Contact",
+  alternates: { canonical: "/contact" },
   description:
     "Contact Averex Land Solutions by phone, email, WhatsApp or visit the Harare-Bulawayo Road location.",
 };

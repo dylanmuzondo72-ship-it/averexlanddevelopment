@@ -3,6 +3,7 @@ import { serviceGroups, getServiceEnquiryUrl } from "@/lib/services";
 
 export const metadata: Metadata = {
   title: "Services",
+  alternates: { canonical: "/services" },
   description:
     "Explore Averex Land Solutions services across surveying coordination, mapping, town planning, applications, drawings, construction, property advisory and project management.",
 };

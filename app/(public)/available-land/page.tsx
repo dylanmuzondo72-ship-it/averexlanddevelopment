@@ -5,6 +5,7 @@ import { getSiteUrl } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Available Land",
+  alternates: { canonical: "/available-land" },
   description:
     "Search published Averex land listings by location, type, price, size and availability. Listings appear only after verification and publication.",
 };

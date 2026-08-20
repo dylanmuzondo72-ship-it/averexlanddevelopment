@@ -3,6 +3,7 @@ import { companySettings } from "@/lib/company";
 
 export const metadata: Metadata = {
   title: "Projects",
+  alternates: { canonical: "/projects" },
   description:
     "Representative Averex Land Solutions service scenarios for land development, due diligence, infrastructure and project-management work.",
 };

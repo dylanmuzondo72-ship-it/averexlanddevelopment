@@ -23,12 +23,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
   const primaryImage = listing.images.find((image) => image.isPrimary) ?? listing.images[0];
+  const listingUrl = `${getSiteUrl()}/available-land/${listing.slug}`;
   return {
     title: listing.title,
     description: `${listing.location} • ${listing.landSize} ${listing.sizeUnit} • ${listing.propertyType}. ${listing.shortDescription}`,
+    alternates: { canonical: listingUrl },
     openGraph: {
       title: `${listing.title} | ${listing.location}`,
       description: listing.shortDescription,
+      url: listingUrl,
       images: primaryImage
         ? [
             {
