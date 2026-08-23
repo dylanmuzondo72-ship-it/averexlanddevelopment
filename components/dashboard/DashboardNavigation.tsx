@@ -57,6 +57,12 @@ const navigationItems: NavigationItem[] = [
     visible: () => true,
   },
   {
+    href: "/dashboard/reports",
+    label: "Reports",
+    mark: "R",
+    visible: () => true,
+  },
+  {
     href: "/dashboard/staff",
     label: "Staff",
     mark: "S",
@@ -84,7 +90,7 @@ const navigationItems: NavigationItem[] = [
 
 const laterModules = [
   "Land administration",
-  "Projects and reports",
+  "Projects",
 ];
 
 function isActive(pathname: string, href: string) {

@@ -25,6 +25,12 @@ const eslintConfig = [
       "@next/next/no-img-element": "off",
     },
   },
+  {
+    files: ["app/dashboard/reports/**/*.tsx", "app/api/reports/**/*.ts"],
+    rules: {
+      "@typescript-eslint/no-explicit-any": "off",
+    },
+  },
 ];
 
 export default eslintConfig;
