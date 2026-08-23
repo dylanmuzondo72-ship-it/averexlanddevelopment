@@ -579,6 +579,110 @@ export type Database = {
           },
         ]
       }
+      land_media: {
+        Row: {
+          alt_text: string | null
+          approval_status: Database["public"]["Enums"]["land_media_approval"]
+          archived_at: string | null
+          caption: string | null
+          created_at: string
+          created_by: string
+          crop_data: Json
+          development_id: string | null
+          file_size: number
+          id: string
+          is_cover: boolean
+          land_unit_id: string | null
+          media_type: Database["public"]["Enums"]["land_media_type"]
+          mime_type: string
+          original_filename: string
+          rotation: number
+          sort_order: number
+          storage_bucket: string
+          storage_path: string
+          updated_at: string
+          updated_by: string
+          visibility: Database["public"]["Enums"]["land_media_visibility"]
+        }
+        Insert: {
+          alt_text?: string | null
+          approval_status?: Database["public"]["Enums"]["land_media_approval"]
+          archived_at?: string | null
+          caption?: string | null
+          created_at?: string
+          created_by: string
+          crop_data?: Json
+          development_id?: string | null
+          file_size: number
+          id?: string
+          is_cover?: boolean
+          land_unit_id?: string | null
+          media_type: Database["public"]["Enums"]["land_media_type"]
+          mime_type: string
+          original_filename: string
+          rotation?: number
+          sort_order?: number
+          storage_bucket: string
+          storage_path: string
+          updated_at?: string
+          updated_by: string
+          visibility?: Database["public"]["Enums"]["land_media_visibility"]
+        }
+        Update: {
+          alt_text?: string | null
+          approval_status?: Database["public"]["Enums"]["land_media_approval"]
+          archived_at?: string | null
+          caption?: string | null
+          created_at?: string
+          created_by?: string
+          crop_data?: Json
+          development_id?: string | null
+          file_size?: number
+          id?: string
+          is_cover?: boolean
+          land_unit_id?: string | null
+          media_type?: Database["public"]["Enums"]["land_media_type"]
+          mime_type?: string
+          original_filename?: string
+          rotation?: number
+          sort_order?: number
+          storage_bucket?: string
+          storage_path?: string
+          updated_at?: string
+          updated_by?: string
+          visibility?: Database["public"]["Enums"]["land_media_visibility"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "land_media_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "land_media_development_id_fkey"
+            columns: ["development_id"]
+            isOneToOne: false
+            referencedRelation: "land_developments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "land_media_land_unit_id_fkey"
+            columns: ["land_unit_id"]
+            isOneToOne: false
+            referencedRelation: "land_units"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "land_media_updated_by_fkey"
+            columns: ["updated_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       land_units: {
         Row: {
           archived_at: string | null
@@ -2553,6 +2657,16 @@ export type Database = {
       document_tax_mode: "exclusive" | "inclusive"
       invoice_status: "draft" | "issued" | "cancelled"
       land_development_status: "draft" | "active" | "completed" | "archived"
+      land_media_approval: "pending" | "approved" | "rejected"
+      land_media_type:
+        | "photo"
+        | "site_plan"
+        | "map"
+        | "brochure"
+        | "survey_document"
+        | "title_document"
+        | "other_document"
+      land_media_visibility: "internal" | "public_candidate"
       land_unit_availability_status:
         | "draft"
         | "available"
@@ -2715,6 +2829,17 @@ export const Constants = {
       document_tax_mode: ["exclusive", "inclusive"],
       invoice_status: ["draft", "issued", "cancelled"],
       land_development_status: ["draft", "active", "completed", "archived"],
+      land_media_approval: ["pending", "approved", "rejected"],
+      land_media_type: [
+        "photo",
+        "site_plan",
+        "map",
+        "brochure",
+        "survey_document",
+        "title_document",
+        "other_document",
+      ],
+      land_media_visibility: ["internal", "public_candidate"],
       land_unit_availability_status: [
         "draft",
         "available",
