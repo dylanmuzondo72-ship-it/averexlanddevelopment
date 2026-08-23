@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use server";
 import type { Enums } from "@/lib/supabase/database.types";
 import { revalidatePath } from "next/cache";
