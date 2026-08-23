@@ -489,6 +489,190 @@ export type Database = {
           },
         ]
       }
+      land_developments: {
+        Row: {
+          address: string | null
+          archived_at: string | null
+          city_town: string | null
+          created_at: string
+          created_by: string
+          currency: string
+          description: string | null
+          development_type: string
+          id: string
+          internal_notes: string | null
+          land_size_unit: string | null
+          latitude: number | null
+          location: string
+          longitude: number | null
+          name: string
+          province: string | null
+          reference_number: string
+          slug: string
+          status: Database["public"]["Enums"]["land_development_status"]
+          total_land_size: number | null
+          updated_at: string
+          updated_by: string
+        }
+        Insert: {
+          address?: string | null
+          archived_at?: string | null
+          city_town?: string | null
+          created_at?: string
+          created_by: string
+          currency?: string
+          description?: string | null
+          development_type: string
+          id?: string
+          internal_notes?: string | null
+          land_size_unit?: string | null
+          latitude?: number | null
+          location: string
+          longitude?: number | null
+          name: string
+          province?: string | null
+          reference_number: string
+          slug: string
+          status?: Database["public"]["Enums"]["land_development_status"]
+          total_land_size?: number | null
+          updated_at?: string
+          updated_by: string
+        }
+        Update: {
+          address?: string | null
+          archived_at?: string | null
+          city_town?: string | null
+          created_at?: string
+          created_by?: string
+          currency?: string
+          description?: string | null
+          development_type?: string
+          id?: string
+          internal_notes?: string | null
+          land_size_unit?: string | null
+          latitude?: number | null
+          location?: string
+          longitude?: number | null
+          name?: string
+          province?: string | null
+          reference_number?: string
+          slug?: string
+          status?: Database["public"]["Enums"]["land_development_status"]
+          total_land_size?: number | null
+          updated_at?: string
+          updated_by?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "land_developments_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "land_developments_updated_by_fkey"
+            columns: ["updated_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      land_units: {
+        Row: {
+          archived_at: string | null
+          asking_price: number | null
+          availability_status: Database["public"]["Enums"]["land_unit_availability_status"]
+          created_at: string
+          created_by: string
+          currency: string
+          description: string | null
+          development_id: string
+          id: string
+          internal_notes: string | null
+          internal_reference: string
+          land_size: number
+          land_size_unit: string
+          location_description: string | null
+          property_type: Database["public"]["Enums"]["land_unit_property_type"]
+          slug: string
+          stand_number: string
+          title: string | null
+          updated_at: string
+          updated_by: string
+          verification_status: Database["public"]["Enums"]["land_unit_verification_status"]
+        }
+        Insert: {
+          archived_at?: string | null
+          asking_price?: number | null
+          availability_status?: Database["public"]["Enums"]["land_unit_availability_status"]
+          created_at?: string
+          created_by: string
+          currency?: string
+          description?: string | null
+          development_id: string
+          id?: string
+          internal_notes?: string | null
+          internal_reference: string
+          land_size: number
+          land_size_unit: string
+          location_description?: string | null
+          property_type: Database["public"]["Enums"]["land_unit_property_type"]
+          slug: string
+          stand_number: string
+          title?: string | null
+          updated_at?: string
+          updated_by: string
+          verification_status?: Database["public"]["Enums"]["land_unit_verification_status"]
+        }
+        Update: {
+          archived_at?: string | null
+          asking_price?: number | null
+          availability_status?: Database["public"]["Enums"]["land_unit_availability_status"]
+          created_at?: string
+          created_by?: string
+          currency?: string
+          description?: string | null
+          development_id?: string
+          id?: string
+          internal_notes?: string | null
+          internal_reference?: string
+          land_size?: number
+          land_size_unit?: string
+          location_description?: string | null
+          property_type?: Database["public"]["Enums"]["land_unit_property_type"]
+          slug?: string
+          stand_number?: string
+          title?: string | null
+          updated_at?: string
+          updated_by?: string
+          verification_status?: Database["public"]["Enums"]["land_unit_verification_status"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "land_units_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "land_units_development_id_fkey"
+            columns: ["development_id"]
+            isOneToOne: false
+            referencedRelation: "land_developments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "land_units_updated_by_fkey"
+            columns: ["updated_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       payment_allocations: {
         Row: {
           allocated_amount: number
@@ -1258,6 +1442,96 @@ export type Database = {
         SetofOptions: {
           from: "*"
           to: "invoices"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      create_land_development: {
+        Args: {
+          new_address?: string
+          new_city_town?: string
+          new_description?: string
+          new_development_type: string
+          new_internal_notes?: string
+          new_land_size_unit?: string
+          new_location: string
+          new_name: string
+          new_province?: string
+          new_slug: string
+          new_total_land_size?: number
+        }
+        Returns: {
+          address: string | null
+          archived_at: string | null
+          city_town: string | null
+          created_at: string
+          created_by: string
+          currency: string
+          description: string | null
+          development_type: string
+          id: string
+          internal_notes: string | null
+          land_size_unit: string | null
+          latitude: number | null
+          location: string
+          longitude: number | null
+          name: string
+          province: string | null
+          reference_number: string
+          slug: string
+          status: Database["public"]["Enums"]["land_development_status"]
+          total_land_size: number | null
+          updated_at: string
+          updated_by: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "land_developments"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      create_land_unit: {
+        Args: {
+          new_asking_price?: number
+          new_currency?: string
+          new_description?: string
+          new_development_id: string
+          new_internal_notes?: string
+          new_land_size: number
+          new_land_size_unit: string
+          new_location_description?: string
+          new_property_type: Database["public"]["Enums"]["land_unit_property_type"]
+          new_slug: string
+          new_stand_number: string
+          new_title?: string
+        }
+        Returns: {
+          archived_at: string | null
+          asking_price: number | null
+          availability_status: Database["public"]["Enums"]["land_unit_availability_status"]
+          created_at: string
+          created_by: string
+          currency: string
+          description: string | null
+          development_id: string
+          id: string
+          internal_notes: string | null
+          internal_reference: string
+          land_size: number
+          land_size_unit: string
+          location_description: string | null
+          property_type: Database["public"]["Enums"]["land_unit_property_type"]
+          slug: string
+          stand_number: string
+          title: string | null
+          updated_at: string
+          updated_by: string
+          verification_status: Database["public"]["Enums"]["land_unit_verification_status"]
+        }
+        SetofOptions: {
+          from: "*"
+          to: "land_units"
           isOneToOne: true
           isSetofReturn: false
         }
@@ -2184,6 +2458,23 @@ export type Database = {
       document_item_type: "service" | "product" | "fee" | "other"
       document_tax_mode: "exclusive" | "inclusive"
       invoice_status: "draft" | "issued" | "cancelled"
+      land_development_status: "draft" | "active" | "completed" | "archived"
+      land_unit_availability_status:
+        | "draft"
+        | "available"
+        | "reserved"
+        | "sold"
+        | "unavailable"
+        | "archived"
+      land_unit_property_type:
+        | "residential"
+        | "commercial"
+        | "industrial"
+        | "agricultural"
+        | "mixed_use"
+        | "development"
+        | "other"
+      land_unit_verification_status: "unverified" | "under_review" | "verified"
       payment_state: "unpaid" | "partially_paid" | "paid"
       profile_status: "active" | "inactive"
       quotation_status:
@@ -2329,6 +2620,25 @@ export const Constants = {
       document_item_type: ["service", "product", "fee", "other"],
       document_tax_mode: ["exclusive", "inclusive"],
       invoice_status: ["draft", "issued", "cancelled"],
+      land_development_status: ["draft", "active", "completed", "archived"],
+      land_unit_availability_status: [
+        "draft",
+        "available",
+        "reserved",
+        "sold",
+        "unavailable",
+        "archived",
+      ],
+      land_unit_property_type: [
+        "residential",
+        "commercial",
+        "industrial",
+        "agricultural",
+        "mixed_use",
+        "development",
+        "other",
+      ],
+      land_unit_verification_status: ["unverified", "under_review", "verified"],
       payment_state: ["unpaid", "partially_paid", "paid"],
       profile_status: ["active", "inactive"],
       quotation_status: [

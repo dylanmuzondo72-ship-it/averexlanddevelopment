@@ -63,6 +63,12 @@ const navigationItems: NavigationItem[] = [
     visible: () => true,
   },
   {
+    href: "/dashboard/land",
+    label: "Land",
+    mark: "L",
+    visible: () => true,
+  },
+  {
     href: "/dashboard/staff",
     label: "Staff",
     mark: "S",
@@ -89,7 +95,6 @@ const navigationItems: NavigationItem[] = [
 ];
 
 const laterModules = [
-  "Land administration",
   "Projects",
 ];
 
