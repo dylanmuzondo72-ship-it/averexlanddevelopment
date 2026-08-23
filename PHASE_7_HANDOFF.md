@@ -7,6 +7,7 @@ Implemented on `feature/averex-business-system` from the latest Reports commit. 
 ## Migration and tables
 
 - `20260823120000_phase_7_land_administration_foundation.sql`
+- `20260823123000_phase_7_land_edit_workflows.sql`
 - `public.land_developments`
 - `public.land_units`
 - `app_private.land_counters`
@@ -21,9 +22,11 @@ Land units require a valid development, use numeric land size and price fields, 
 - `/dashboard/land/developments`
 - `/dashboard/land/developments/new`
 - `/dashboard/land/developments/[id]`
+- `/dashboard/land/developments/[id]/edit`
 - `/dashboard/land/units`
 - `/dashboard/land/units/new`
 - `/dashboard/land/units/[id]`
+- `/dashboard/land/units/[id]/edit`
 
 The dashboard navigation now exposes Land. All public Available Land data remains unchanged and empty; internal records are not publicly queried.
 
@@ -46,7 +49,7 @@ Passed:
 
 ## Review limitations before deployment
 
-- Edit/archive/status-change server actions and their edit routes are reserved for the next implementation checkpoint; the current foundation provides secure creation, read/search/filter, detail views, and archival schema safeguards.
+- Edit and status-change actions are protected by role checks and database RPCs. Archive is represented by the status workflows and remains subject to operational review.
 - Pagination is bounded to the first 50 rows in the initial internal lists; full page navigation should be added before a large portfolio is operated.
 - Vercel Preview and manual role/mobile QA remain to be performed after review.
 

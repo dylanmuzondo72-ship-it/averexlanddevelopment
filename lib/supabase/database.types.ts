@@ -2379,6 +2379,100 @@ export type Database = {
           isSetofReturn: false
         }
       }
+      update_land_development: {
+        Args: {
+          new_address?: string
+          new_city_town?: string
+          new_description?: string
+          new_development_type: string
+          new_internal_notes?: string
+          new_land_size_unit?: string
+          new_location: string
+          new_name: string
+          new_province?: string
+          new_slug: string
+          new_status?: Database["public"]["Enums"]["land_development_status"]
+          new_total_land_size?: number
+          target_id: string
+        }
+        Returns: {
+          address: string | null
+          archived_at: string | null
+          city_town: string | null
+          created_at: string
+          created_by: string
+          currency: string
+          description: string | null
+          development_type: string
+          id: string
+          internal_notes: string | null
+          land_size_unit: string | null
+          latitude: number | null
+          location: string
+          longitude: number | null
+          name: string
+          province: string | null
+          reference_number: string
+          slug: string
+          status: Database["public"]["Enums"]["land_development_status"]
+          total_land_size: number | null
+          updated_at: string
+          updated_by: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "land_developments"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      update_land_unit: {
+        Args: {
+          new_asking_price?: number
+          new_availability_status?: Database["public"]["Enums"]["land_unit_availability_status"]
+          new_currency?: string
+          new_description?: string
+          new_internal_notes?: string
+          new_land_size: number
+          new_land_size_unit: string
+          new_location_description?: string
+          new_property_type: Database["public"]["Enums"]["land_unit_property_type"]
+          new_slug: string
+          new_stand_number: string
+          new_title?: string
+          new_verification_status?: Database["public"]["Enums"]["land_unit_verification_status"]
+          target_id: string
+        }
+        Returns: {
+          archived_at: string | null
+          asking_price: number | null
+          availability_status: Database["public"]["Enums"]["land_unit_availability_status"]
+          created_at: string
+          created_by: string
+          currency: string
+          description: string | null
+          development_id: string
+          id: string
+          internal_notes: string | null
+          internal_reference: string
+          land_size: number
+          land_size_unit: string
+          location_description: string | null
+          property_type: Database["public"]["Enums"]["land_unit_property_type"]
+          slug: string
+          stand_number: string
+          title: string | null
+          updated_at: string
+          updated_by: string
+          verification_status: Database["public"]["Enums"]["land_unit_verification_status"]
+        }
+        SetofOptions: {
+          from: "*"
+          to: "land_units"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
       update_quotation: {
         Args: {
           expected_lock_version: number
