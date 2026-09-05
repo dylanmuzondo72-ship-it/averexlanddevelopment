@@ -11,6 +11,9 @@ const previewHeaders =
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   poweredByHeader: false,
+  experimental: {
+    serverActions: { bodySizeLimit: "4.5mb" },
+  },
   async headers() {
     if (!previewHeaders.length) return [];
     return [

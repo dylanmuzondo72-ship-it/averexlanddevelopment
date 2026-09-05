@@ -1318,6 +1318,8 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      set_land_media_cover: { Args: { target_id: string }; Returns: undefined };
+      move_land_media: { Args: { target_id: string; move_direction: number }; Returns: undefined };
       admin_update_profile: {
         Args: {
           new_full_name: string

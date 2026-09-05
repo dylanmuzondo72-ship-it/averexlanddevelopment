@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
+import { csvCell } from "@/lib/dashboard/csv";
 import { requireDashboardUser } from "@/lib/dashboard/access";
 import { getReportData, getReportRange } from "@/lib/dashboard/reports";
 
-function csvCell(value: unknown) { return `"${String(value ?? "").replace(/"/g, '""')}"`; }
 function csv(rows: string[][]) { return rows.map((row) => row.map(csvCell).join(",")).join("\r\n"); }
 
 export async function GET(request: Request) {

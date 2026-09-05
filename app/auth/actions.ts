@@ -3,23 +3,13 @@
 import { redirect } from "next/navigation";
 import { getSiteUrl } from "@/lib/seo";
 import { createClient } from "@/lib/supabase/server";
+import { safeNextPath } from "@/lib/auth-redirect";
 
 function getString(formData: FormData, name: string) {
   const value = formData.get(name);
   return typeof value === "string" ? value.trim() : "";
 }
 
-function safeNextPath(value: string) {
-  if (!value.startsWith("/") || value.startsWith("//")) {
-    return "/dashboard";
-  }
-
-  if (value.startsWith("/login") || value.startsWith("/auth")) {
-    return "/dashboard";
-  }
-
-  return value;
-}
 
 function withMessage(
   path: string,

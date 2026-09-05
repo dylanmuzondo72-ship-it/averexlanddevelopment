@@ -15,7 +15,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: ["/login", "/available-land/*?draft=*"],
+      disallow: ["/dashboard", "/auth", "/api", "/login", "/forgot-password", "/reset-password", "/available-land/*?draft=*"],
     },
     sitemap: `${getSiteUrl()}/sitemap.xml`,
   };

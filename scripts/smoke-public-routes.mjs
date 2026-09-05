@@ -139,6 +139,17 @@ async function main() {
       throw new Error("Login page is missing its public-site return link");
     }
     await expectDashboardProtection();
+    const robots = await (await fetch(`${baseUrl}/robots.txt`)).text();
+    for (const path of ["/dashboard", "/auth", "/api", "/forgot-password", "/reset-password"]) {
+      if (!robots.includes(`Disallow: ${path}`)) throw new Error(`robots.txt missing ${path}`);
+    }
+    const sitemap = await (await fetch(`${baseUrl}/sitemap.xml`)).text();
+    if (!sitemap.includes("https://averexlandsolutions.com") || /\/(dashboard|auth|login|reset-password)/.test(sitemap)) {
+      throw new Error("Sitemap canonical or privacy regression");
+    }
+    const unsafeRedirect = await fetch(`${baseUrl}/auth/callback?next=${encodeURIComponent('/\\evil.invalid')}`, { redirect: "manual" });
+    const safeLocation = new URL(unsafeRedirect.headers.get("location"), baseUrl);
+    if (!["127.0.0.1", "localhost"].includes(safeLocation.hostname) || safeLocation.port !== String(port) || safeLocation.pathname !== "/dashboard") throw new Error(`External auth redirect allowed: ${safeLocation}`);
     const missingListing = await fetch(`${baseUrl}/available-land/unknown-listing`);
     if (missingListing.status !== 404) {
       throw new Error(`Unknown listing returned ${missingListing.status}, expected 404`);
